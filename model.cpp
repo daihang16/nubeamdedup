@@ -701,7 +701,7 @@ int main(int argc, char ** argv)
 			}
 		} else { // PE reads
 			if (strand) {
-				quantify_reads_rc_approx(fin1, fin2, fout1, fout2);
+				quantify_reads_rc(fin1, fin2, fout1, fout2);
 			} else {
 				quantify_reads(fin1, fin2, fout1, fout2);
 			}
