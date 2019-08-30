@@ -1,5 +1,5 @@
 # nubeamdedup
-Removing PCR duplicates for sequencing reads.
+Removing PCR duplicates for sequencing reads. **Currently we do not offer license. Use the tool or copy source code by author's permission only**.
 ## Usage:
 To complile, download the * *model.cpp* * and * *Makefile* * to the same directory and type `make`.
 
