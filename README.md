@@ -1,6 +1,8 @@
 # nubeamdedup
 Removing PCR duplicates for sequencing reads.
 ## Usage:
+To complile, download the * *model.cpp* * and * *Makefile* * to the same directory and type `make`.
+
 `./nubeamdedup -h` gives you the following messages:
 ```
 ./nubeamdedup [-i -o -i1 -i2 -o1 -o2 -s -h]
