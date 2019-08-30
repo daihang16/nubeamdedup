@@ -24,16 +24,16 @@ Produces de-duplicated reads in fastq files with user-given name.
 - For single-end reads
   - Consider reads from complementary strand (default)
   
-    `./nubeam-dedup -i read.fq -o read.uniq.fq`
+    `./nubeam-dedup -i read.fq`
   - Do not consider reads from complementary strand
     
-    `./nubeam-dedup -i read.fq -o read.uniq.fq -s 0`
+    `./nubeam-dedup -i read.fq -s 0`
 
 - For paired-end reads
   - Consider reads from complementary strand (default)
   
-    `./nubeam-dedup -i1 read1.fq -i2 read2.fq -o1 read1.uniq.fq -o2 read2.uniq.fq`
+    `./nubeam-dedup -i1 read1.fq -i2 read2.fq`
   - Do not consider reads from complementary strand
   
-    `./nubeam-dedup -i1 read1.fq -i2 read2.fq -o1 read1.uniq.fq -o2 read2.uniq.fq -s 0`
+    `./nubeam-dedup -i1 read1.fq -i2 read2.fq -s 0`
   
