@@ -18,7 +18,8 @@ endif
 
 CFLAGS += -Wall -m64 -std=c++11 
 
-STATICLIBS += /usr/local/lib/libgsl.a /usr/local/lib/libgslcblas.a 
+# STATICLIBS += /usr/local/lib/libgsl.a /usr/local/lib/libgslcblas.a 
+STATICLIBS += /usr/local/lib/libz.a 
 
 CPPFLAGS = CFLAGS
 
@@ -35,7 +36,7 @@ all:  model $(OBJS)
 
 ## static link to gsl libs.  		
 ## note it's crutial to use -static-libgcc instead of static; 
-model: model.o $(OBJS); $(CC) -static-libgcc  $(CFLAGS) $(OBJS) $(STATICLIBS) $(LIBS) -o nubeamdedup	
+model: model.o $(OBJS); $(CC) -static-libgcc  $(CFLAGS) $(OBJS) $(STATICLIBS) $(LIBS) -o nubeam-dedup	
 #fp: fp.o $(OBJS); $(CC) -static-libgcc $(CFLAGS) $(OBJS) fp.o $(LIBS) -o bimbam	
 #fp: fp.o $(OBJS); $(CC) $(CFLAGS) $(OBJS) fp.o $(STATICLIBS) $(LIBS) -o bimbam	
 
@@ -43,7 +44,7 @@ model: model.o $(OBJS); $(CC) -static-libgcc  $(CFLAGS) $(OBJS) $(STATICLIBS) $(
 
 showdep: 	
 		@$(CC) -MM $(SRCS)
- 
+
 clean: 
 		rm -f *.o
 		

@@ -620,7 +620,7 @@ int main(int argc, char ** argv)
 	string fout1; 
 	string fout2;
 	string fnlog = "\0"; 
-	bool strand = 0; // whether consider reads from complementary strand or not
+	bool strand = 1; // whether consider reads from complementary strand or not
 	bool qtf = 0; // let it run or not 
 
 	for (int i = 1; i < argc; i++) {
@@ -630,16 +630,16 @@ int main(int argc, char ** argv)
 			continue;
 		str.assign(argv[i]);
 		if (str.compare("-h") == 0) {
-			printf("./nubeamdedup [-i -o -i1 -i2 -o1 -o2 -s -h]\n"); 
+			printf("./nubeam-dedup [-i -o -i1 -i2 -o1 -o2 -s -h]\n"); 
 			printf("Remove exact PCR duplicates for sequencing reads in (gzipped) fastq format.\n");
 			printf("Produces de-duplicated reads in fastq files with user-given name.\n"); 
-			printf("--in or -i: input file name for SE reads\n"); 
-			printf("--out or -o: output file name for SE reads\n"); 
-			printf("--in1 or -i1: input file name for PE reads read 1 file\n"); 
-			printf("--in2 or -i2: input file name for PE reads read 2 file\n"); 
-			printf("--out1 or -o1: output file name for PE reads read 1 file\n");
-			printf("--out2 or -o2: output file name for PE reads read 2 file\n");
-			printf("--strand or -s: whether take reads from complementary strand into account. Accept boolean 0 (default) or 1.\n");
+			printf("--in or -i: Input file name for SE reads.\n"); 
+			printf("--out or -o: Output file name for SE reads. The default is input file name appended with '.uniq'.\n"); 
+			printf("--in1 or -i1: Input file name for PE reads read 1 file.\n"); 
+			printf("--in2 or -i2: Input file name for PE reads read 2 file.\n"); 
+			printf("--out1 or -o1: Output file name for PE reads read 1 file. The default is read 1 file name appended with '.uniq'.\n");
+			printf("--out2 or -o2: Output file name for PE reads read 2 file. The default is read 2 file name appended with '.uniq'.\n");
+			printf("--strand or -s: Whether take reads from complementary strand into account. Accept boolean 1 (default) or 0.\n");
 			printf("-h: print this help\n"); 
 			exit(0); 
 		}
@@ -694,12 +694,19 @@ int main(int argc, char ** argv)
 	
 	if (qtf) {
 		if (fin1 == "") { // SE reads
+			if (fout == "") { // which is default, else use what suggested by user
+				fout = fin + ".uniq";
+			}
 			if (strand) {
 				quantify_reads_rc(fin, fout);
 			} else {
 				quantify_reads(fin, fout);
 			}
 		} else { // PE reads
+			if (fout1 == "") { // which is default, else use what suggested by user
+				fout1 = fin1 + ".uniq";
+				fout2 = fin2 + ".uniq";
+			}
 			if (strand) {
 				quantify_reads_rc(fin1, fin2, fout1, fout2);
 			} else {
@@ -708,7 +715,7 @@ int main(int argc, char ** argv)
 		}
 		return 1; 
 	} else {
-		printf("No input file(s). Use ./nubeamdedup -h for more options.\n"); 
+		printf("No input file(s). Use ./nubeam-dedup -h for more options.\n"); 
 		exit(0);
 	}
 	return 0; 
