@@ -3,9 +3,9 @@ Removing PCR duplicates for sequencing reads. **Currently we do not offer licens
 ## Usage:
 To complile, download the * *model.cpp* * and * *Makefile* * to the same directory and type `make`.
 
-`./nubeamdedup -h` gives you the following messages:
+`./nubeam-dedup -h` gives you the following messages:
 ```
-./nubeamdedup [-i -o -i1 -i2 -o1 -o2 -s -h]
+./nubeam-dedup [-i -o -i1 -i2 -o1 -o2 -s -h]
 
 Remove exact PCR duplicates for sequencing reads in (gzipped) fastq format.
 Produces de-duplicated reads in fastq files with user-given name.
@@ -24,15 +24,15 @@ Produces de-duplicated reads in fastq files with user-given name.
 - For single-end reads
   - Do not consider reads from complementary strand
     
-    `./nubeamdedup -i read.fq -o read.uniq.fq`
+    `./nubeam-dedup -i read.fq -o read.uniq.fq`
   - Consider reads from complementary strand
   
-    `./nubeamdedup -i read.fq -o read.uniq.fq -s 1`
+    `./nubeam-dedup -i read.fq -o read.uniq.fq -s 1`
 
 - For paired-end reads
   - Do not consider reads from complementary strand
   
-    `./nubeamdedup -i1 read1.fq -i2 read2.fq -o1 read1.uniq.fq -o2 read2.uniq.fq`
+    `./nubeam-dedup -i1 read1.fq -i2 read2.fq -o1 read1.uniq.fq -o2 read2.uniq.fq`
   - Consider reads from complementary strand
   
-    `./nubeamdedup -i1 read1.fq -i2 read2.fq -o1 read1.uniq.fq -o2 read2.uniq.fq -s 1`
+    `./nubeam-dedup -i1 read1.fq -i2 read2.fq -o1 read1.uniq.fq -o2 read2.uniq.fq -s 1`
