@@ -1,0 +1,266 @@
+// /*************************************************************************
+// * 
+// * Duke University CONFIDENTIAL
+// * __________________
+// * 
+// * [2019] - [20**] Duke University & Yongtao Guan & Hang Dai
+// * All Rights Reserved.
+// * 
+// * NOTICE: All information contained herein is, and remains
+// * the property of Duke University and the creator. 
+// * The intellectual and technical concepts contained
+// * herein are proprietary to Duke University and the creator
+// * and may be covered by U.S. and Foreign Patents, patents in process, 
+// * and are protected by trade secret or copyright law.
+// * Dissemination of this information or reproduction of this material
+// * is strictly forbidden unless prior written permission is obtained
+// * from Duke University.
+
+#include "functions.h"
+
+int main(int argc, char ** argv)
+{
+	string fin; 
+	string fout; 
+	string fin1; 
+	string fin2; 
+	string fout1; 
+	string fout2;
+	string fremoved; 
+	string fremoved1; 
+	string fremoved2; 
+	bool strand = 1; // whether consider reads from complementary strand or not
+	bool write_remove = 0; // whether output removed reads or not
+	int gz = 0; // indicating compression level when writing gzipped file, 0-9
+	string compression_level;
+	string file_name_suffix;
+	string removed_name_suffix;
+	bool qtf = 0; // let it run or not 
+
+	for (int i = 1; i < argc; i++) {
+		string str;
+		
+		if (i>1 && argv[i][0] != '-') 
+			continue;
+		str.assign(argv[i]);
+		if (str.compare("-h") == 0) {
+			cout << "./nubeam-dedup [-i -o -d    -i1 -i2 -o1 -o2 -d1 -d2    -s -r -z -h]\n\n"; 
+			cout << "Remove exact PCR duplicates for sequencing reads in (gzipped) fastq format.\n";
+			cout << "Produces de-duplicated reads in fastq files.\n\n"; 
+
+			cout << "Parameters for single-end (SE) reads:\n";
+			cout << "--in or -i: Input file name. The parameter is mandatory for SE reads.\n"; 
+			cout << "--out or -o: Output file name for unique reads. The default is input file name prefix appended with '.uniq.fastq(.gz)', under the current directory.\n"; 
+			cout << "--duplicate or -d: File name for removed duplicated reads. The parameter is only valid when --remove or -r is set as 1 (see below). The default is input file name prefix appended with '.removed.fastq(.gz)', under the current directory.\n\n"; 
+			
+			cout << "Parameters for paired-end (PE) reads:\n";
+			cout << "--in1 or -i1: Input file name for read 1 file. The parameter is mandatory for PE reads.\n"; 
+			cout << "--in2 or -i2: Input file name for read 2 file. The parameter is mandatory for PE reads.\n"; 
+			cout << "--out1 or -o1: Output file name for unique read pairs read 1 file. The default is read 1 file name prefix appended with '.uniq.fastq(.gz)', under the current working directory.\n";
+			cout << "--out2 or -o2: Output file name for unique read pairs read 2 file. The default is read 2 file name prefix appended with '.uniq.fastq(.gz)', under the current working directory.\n";
+			cout << "--duplicate1 or -d1: File name for removed duplicated read pairs read 1 file. The parameter is only valid when --remove or -r is set as 1 (see below). The default is input file name prefix appended with '.removed.fastq(.gz)', under the current directory.\n"; 
+			cout << "--duplicate2 or -d2: File name for removed duplicated read pairs read 2 file. The parameter is only valid when --remove or -r is set as 1 (see below). The default is input file name prefix appended with '.removed.fastq(.gz)', under the current directory.\n\n"; 
+			
+			cout << "Miscellaneous parameters:\n";
+			cout << "--strand or -s: Whether take reads from complementary strand into account. Accept boolean 1 (default) or 0.\n";
+			cout << "--remove or -r: Whether output removed duplicated reads. Accept boolean 0 (default) or 1.\n";
+			cout << "--gz or -z: Compression level of output file. Accept integer 0 (default) to 9. " << 
+			"If 0 (default), the output data will not be compressed and will be written to plain text file; " << 
+			"otherwise, the output data will be written to gzip format file, with the compression level suggested by user. " << 
+			"If compression is needed, a compression level of 6 is recommended as a compromise between speed and compression.\n\n";
+			cout << "-h: print this help\n"; 
+			exit(0); 
+		}
+		else if (str.compare("--in") == 0 || str.compare("-i") == 0) {
+			if (argv[i+1] == NULL || argv[i+1][0] == '-') continue;
+			// fin.clear();
+			fin.assign(argv[i+1]);
+			qtf = 1;
+		}
+		else if (str.compare("--out") == 0 || str.compare("-o") == 0) {
+			if (argv[i+1] == NULL || argv[i+1][0] == '-') continue;
+			// fout.clear();
+			fout.assign(argv[i+1]);
+		}
+		else if (str.compare("--duplicate") == 0 || str.compare("-d") == 0) {
+			if (argv[i+1] == NULL || argv[i+1][0] == '-') continue;
+			// fremoved.clear();
+			fremoved.assign(argv[i+1]);
+		}
+		else if (str.compare("--in1") == 0 || str.compare("-i1") == 0) {
+			if (argv[i+1] == NULL || argv[i+1][0] == '-') continue;
+			fin1.clear();
+			fin1.assign(argv[i+1]);
+			qtf = 1;
+		}
+		else if (str.compare("--in2") == 0 || str.compare("-i2") == 0) {
+			if (argv[i+1] == NULL || argv[i+1][0] == '-') continue;
+			fin2.clear();
+			fin2.assign(argv[i+1]);
+		}
+		else if (str.compare("--out1") == 0 || str.compare("-o1") == 0) {
+			if (argv[i+1] == NULL || argv[i+1][0] == '-') continue;
+			fout1.clear();
+			fout1.assign(argv[i+1]);
+		}
+		else if (str.compare("--out2") == 0 || str.compare("-o2") == 0) {
+			if (argv[i+1] == NULL || argv[i+1][0] == '-') continue;
+			fout2.clear();
+			fout2.assign(argv[i+1]);
+		}
+		else if (str.compare("--duplicate1") == 0 || str.compare("-d1") == 0) {
+			if (argv[i+1] == NULL || argv[i+1][0] == '-') continue;
+			fremoved1.assign(argv[i+1]);
+		}
+		else if (str.compare("--duplicate2") == 0 || str.compare("-d2") == 0) {
+			if (argv[i+1] == NULL || argv[i+1][0] == '-') continue;
+			fremoved2.assign(argv[i+1]);
+		}
+		else if (str.compare("--strand") == 0 || str.compare("-s") == 0) {
+			if (argv[i+1] == NULL || argv[i+1][0] == '-') continue;
+			if (!isdigit(argv[i+1][0])) {
+				printf("wrong augument after option --strand.\n");
+				exit(0);
+			}
+			strand = atoi(argv[i+1]);
+		}
+		else if (str.compare("--remove") == 0 || str.compare("-r") == 0) {
+			if (argv[i+1] == NULL || argv[i+1][0] == '-') continue;
+			if (!isdigit(argv[i+1][0])) {
+				printf("wrong augument after option --remove.\n");
+				exit(0);
+			}
+			write_remove = atoi(argv[i+1]);
+		}
+		else if (str.compare("--gz") == 0 || str.compare("-z") == 0) {
+			if (argv[i+1] == NULL || argv[i+1][0] == '-') continue;
+			if (!isdigit(argv[i+1][0])) {
+				printf("wrong augument after option --gz.\n");
+				exit(0);
+			}
+			gz = atoi(argv[i+1]);
+		}
+		else {
+			fprintf(stderr,"Bad option %s\n", argv[i]);
+			exit(0);
+		}
+	}
+	
+	if (qtf) {
+		if (gz) { // determine compression level
+			compression_level = "wb" + to_string(gz);
+			file_name_suffix = ".uniq.fastq.gz";
+			removed_name_suffix = ".removed.fastq.gz";
+		} else {
+			compression_level = "wT";
+			file_name_suffix = ".uniq.fastq";
+			removed_name_suffix = ".removed.fastq";
+		}
+		if (fin1 == "") { // SE reads
+			if (fout == "" || fremoved == "") { // means we need to figure out the file name by ourselves
+				string fin_copy(fin); // copy fin
+				auto search_path = fin_copy.rfind("/");
+				if (search_path != string::npos) { // if find '/'
+					fin_copy.erase(0, search_path + 1);
+				}
+				auto search_suffix = fin_copy.rfind(".fastq");
+				if (search_suffix == string::npos) { // if fail to find "fastq", go to find "fq"
+					search_suffix = fin_copy.rfind(".fq");
+				}
+				if (search_suffix != string::npos) { // if can find "fastq" or "fq"
+					fin_copy.erase(search_suffix);
+				}
+				char buff[FILENAME_MAX];
+				getcwd(buff, FILENAME_MAX);
+				string current_working_dir(buff); // copy buff
+				if (fout == "") { // which is default, else use what suggested by user
+					fout = current_working_dir + "/" + fin_copy + file_name_suffix;
+				}
+				if (write_remove) {
+					if (fremoved == "") { // which is default, else use what suggested by user
+						fremoved = current_working_dir + "/" + fin_copy + removed_name_suffix;
+					}
+					cout << "Output removed duplicated reads to " << fremoved << "\n";
+				}
+			}
+			cout << "Output unique reads to " << fout << "\n";
+
+			if (strand) {
+				if (write_remove) {
+					quantify_reads_rc(fin, fout, fremoved, compression_level);
+				} else {
+					quantify_reads_rc(fin, fout, compression_level);
+				}
+			} else {
+				if (write_remove) {
+					quantify_reads(fin, fout, fremoved, compression_level);
+				} else {
+					quantify_reads(fin, fout, compression_level);
+				}
+			}
+		} else { // PE reads
+			if (fout1 == "" || fremoved1 == "") { // means we need to figure out the file name by ourselves
+				string fin_copy1(fin1); // copy fin1
+				auto search_path1 = fin_copy1.rfind("/");
+				if (search_path1 != string::npos) { // if find '/'
+					fin_copy1.erase(0, search_path1 + 1);
+				}
+				auto search_suffix1 = fin_copy1.rfind(".fastq");
+				if (search_suffix1 == string::npos) { // if fail to find "fastq", go to find "fq"
+					search_suffix1 = fin_copy1.rfind(".fq");
+				}
+				if (search_suffix1 != string::npos) { // if can find "fastq" or "fq"
+					fin_copy1.erase(search_suffix1);
+				}
+				string fin_copy2(fin2); // copy fin2
+				auto search_path2 = fin_copy2.rfind("/");
+				if (search_path2 != string::npos) { // if find '/'
+					fin_copy2.erase(0, search_path2 + 1);
+				}
+				auto search_suffix2 = fin_copy2.rfind(".fastq");
+				if (search_suffix2 == string::npos) { // if fail to find "fastq", go to find "fq"
+					search_suffix2 = fin_copy2.rfind(".fq");
+				}
+				if (search_suffix2 != string::npos) { // if can find "fastq" or "fq"
+					fin_copy2.erase(search_suffix2);
+				}
+				char buff[FILENAME_MAX];
+				getcwd(buff, FILENAME_MAX);
+				string current_working_dir(buff); // copy buff
+				fout1 = current_working_dir + "/" + fin_copy1 + file_name_suffix;
+				fout2 = current_working_dir + "/" + fin_copy2 + file_name_suffix;
+				if (fout1 == "") { // which is default, else use what suggested by user
+					fout1 = current_working_dir + "/" + fin_copy1 + file_name_suffix;
+					fout2 = current_working_dir + "/" + fin_copy2 + file_name_suffix;
+				}
+				if (write_remove) {
+					if (fremoved1 == "") { // which is default, else use what suggested by user
+						fremoved1 = current_working_dir + "/" + fin_copy1 + removed_name_suffix;
+						fremoved2 = current_working_dir + "/" + fin_copy2 + removed_name_suffix;
+					}
+					cout << "Output removed duplicated read pairs read 1 to " << fremoved1 << "\nOutput removed duplicated read pairs read 2 to " << fremoved2 << "\n";
+				}
+			}
+			cout << "Output unique read pairs read 1 to " << fout1 << "\nOutput unique read pairs read 2 to " << fout2 << "\n";
+			
+			if (strand) {
+				if (write_remove) {
+					quantify_reads_rc(fin1, fin2, fout1, fout2, fremoved1, fremoved2, compression_level);
+				} else {
+					quantify_reads_rc(fin1, fin2, fout1, fout2, compression_level);
+				}
+			} else {
+				if (write_remove) {
+					quantify_reads(fin1, fin2, fout1, fout2, fremoved1, fremoved2, compression_level);
+				} else {
+					quantify_reads(fin1, fin2, fout1, fout2, compression_level);
+				}
+			}
+		}
+		return 1; 
+	} else {
+		cerr << "No input file(s). Use ./nubeam-dedup -h for more options.\n"; 
+		exit(0);
+	}
+	return 0; 
+}
