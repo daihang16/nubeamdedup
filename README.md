@@ -1,7 +1,7 @@
 # nubeam-dedup
 Removing PCR duplicates for sequencing reads. **Currently we do not offer license. Use the tool or copy source code by author's permission only**.
 ## Usage:
-To complile, go to the directory and type `make && make clean`.
+To complile, go to the Linux or Mac directory and type `make && make clean`. We also offer pre-compliled executable file.
 
 `./nubeam-dedup -h` gives you the following messages:
 ```
