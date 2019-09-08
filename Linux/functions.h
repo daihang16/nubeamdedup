@@ -31,3 +31,4 @@ void quantify_reads_rc(string fin, string fout, string compression_level); // SE
 void quantify_reads_rc(string fin1, string fin2, string fout1, string fout2, string compression_level); // PE reads
 void quantify_reads_rc(string fin, string fout, string fremoved, string compression_level); // SE reads, output removed reads
 void quantify_reads_rc(string fin1, string fin2, string fout1, string fout2, string fremoved1, string fremoved2, string compression_level); // PE reads, output removed reads
+

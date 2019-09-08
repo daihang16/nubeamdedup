@@ -274,9 +274,7 @@ void quantify_reads(string fin1, string fin2, string fout1, string fout2, string
 	char * tscore2 = new char[200];  
 
 	unordered_multimap<double, unsigned int> vdat1;
-	unordered_multimap<double, unsigned int> vdat2;
-
-	set<unsigned int> temp_set;
+	unordered_map<unsigned int, double> vdat2;
 
 	double read_identifier1;
 	double read_identifier2;
@@ -306,29 +304,25 @@ void quantify_reads(string fin1, string fin2, string fout1, string fout2, string
 		// check if the read pair has already appeared before
 		// if unseen, keep it; else, skip it 
 		auto pos1 = vdat1.equal_range(read_identifier1);
-		auto pos2 = vdat2.equal_range(read_identifier2);
-		if (pos1.first == vdat1.end() || pos2.first == vdat2.end()) {
-			vdat1.insert(pos1.second, pair<double, unsigned int>(read_identifier1, line_num)); // gives it hint
-			vdat2.insert(pos2.second, pair<double, unsigned int>(read_identifier2, line_num));
+		if (pos1.first == vdat1.end()) {
+			vdat1.insert({read_identifier1, line_num});
+			vdat2.insert({line_num, read_identifier2});
 			gzprintf(output_file1, "%s%s+\n%s", seq_id1, raw_sequence1, tscore1);
 			gzprintf(output_file2, "%s%s+\n%s", seq_id2, raw_sequence2, tscore2);
 		} else {
-			while (pos1.first != pos1.second) {
-				temp_set.insert(pos1.first->second);
+			bool seen = 0;
+			while (!seen && pos1.first != pos1.second) {
+				if (vdat2[pos1.first->second] == read_identifier2) {
+					seen++;
+				}
 				pos1.first++;
 			}
-			unsigned int count = 0;
-			while (count == 0 && pos2.first != pos2.second) {
-				count = temp_set.count(pos2.first->second);
-				pos2.first++;
-			}
-			if (count == 0) {
+			if (!seen) {
 				vdat1.insert(pos1.second, pair<double, unsigned int>(read_identifier1, line_num)); // gives it hint
-				vdat2.insert(pos2.second, pair<double, unsigned int>(read_identifier2, line_num));
+				vdat2.insert({line_num, read_identifier2});
 				gzprintf(output_file1, "%s%s+\n%s", seq_id1, raw_sequence1, tscore1);
 				gzprintf(output_file2, "%s%s+\n%s", seq_id2, raw_sequence2, tscore2);
 			}
-			temp_set.clear();
 		}
 	}
 	gzclose(input_file1);
@@ -397,9 +391,7 @@ void quantify_reads(string fin1, string fin2, string fout1, string fout2, string
 	char * tscore2 = new char[200];  
 
 	unordered_multimap<double, unsigned int> vdat1;
-	unordered_multimap<double, unsigned int> vdat2;
-
-	set<unsigned int> temp_set;
+	unordered_map<unsigned int, double> vdat2;
 
 	double read_identifier1;
 	double read_identifier2;
@@ -429,32 +421,28 @@ void quantify_reads(string fin1, string fin2, string fout1, string fout2, string
 		// check if the read pair has already appeared before
 		// if unseen, keep it; else, skip it 
 		auto pos1 = vdat1.equal_range(read_identifier1);
-		auto pos2 = vdat2.equal_range(read_identifier2);
-		if (pos1.first == vdat1.end() || pos2.first == vdat2.end()) {
-			vdat1.insert(pos1.second, pair<double, unsigned int>(read_identifier1, line_num)); // gives it hint
-			vdat2.insert(pos2.second, pair<double, unsigned int>(read_identifier2, line_num));
+		if (pos1.first == vdat1.end()) {
+			vdat1.insert({read_identifier1, line_num});
+			vdat2.insert({line_num, read_identifier2});
 			gzprintf(output_file1, "%s%s+\n%s", seq_id1, raw_sequence1, tscore1);
 			gzprintf(output_file2, "%s%s+\n%s", seq_id2, raw_sequence2, tscore2);
 		} else {
-			while (pos1.first != pos1.second) {
-				temp_set.insert(pos1.first->second);
+			bool seen = 0;
+			while (!seen && pos1.first != pos1.second) {
+				if (vdat2[pos1.first->second] == read_identifier2) {
+					seen++;
+				}
 				pos1.first++;
 			}
-			unsigned int count = 0;
-			while (count == 0 && pos2.first != pos2.second) {
-				count = temp_set.count(pos2.first->second);
-				pos2.first++;
-			}
-			if (count == 0) {
+			if (!seen) {
 				vdat1.insert(pos1.second, pair<double, unsigned int>(read_identifier1, line_num)); // gives it hint
-				vdat2.insert(pos2.second, pair<double, unsigned int>(read_identifier2, line_num));
+				vdat2.insert({line_num, read_identifier2});
 				gzprintf(output_file1, "%s%s+\n%s", seq_id1, raw_sequence1, tscore1);
 				gzprintf(output_file2, "%s%s+\n%s", seq_id2, raw_sequence2, tscore2);
 			} else {
 				gzprintf(removed_file1, "%s%s+\n%s", seq_id1, raw_sequence1, tscore1);
 				gzprintf(removed_file2, "%s%s+\n%s", seq_id2, raw_sequence2, tscore2);
 			}
-			temp_set.clear();
 		}
 	}
 	gzclose(input_file1);
@@ -479,7 +467,7 @@ void quantify_reads(string fin1, string fin2, string fout1, string fout2, string
 // PE reads
 void quantify_reads_rc(string fin1, string fin2, string fout1, string fout2, string compression_level) 
 {
-	gzFile output_file1 = gzopen(fout1.c_str(), compression_level.c_str());
+	gzFile output_file1 = gzopen(fout1.c_str(), compression_level.c_str());	
 	if(output_file1 == NULL) 
 	{
 		printf("can't open %s file to write\n", fout1.c_str()); 
@@ -514,9 +502,7 @@ void quantify_reads_rc(string fin1, string fin2, string fout1, string fout2, str
 	char * tscore2 = new char[200];  
 
 	unordered_multimap<double, unsigned int> vdat1;
-	unordered_multimap<double, unsigned int> vdat2;
-
-	set<unsigned int> temp_set;
+	unordered_map<unsigned int, double> vdat2;
 
 	double read_identifier1;
 	double read_identifier2;
@@ -546,33 +532,39 @@ void quantify_reads_rc(string fin1, string fin2, string fout1, string fout2, str
 		// check if the read pair has already appeared before
 		// if unseen, keep it; else, skip it 
 		auto pos1 = vdat1.equal_range(read_identifier1);
-		auto pos2 = vdat2.equal_range(read_identifier2);
-		if (pos1.first == vdat1.end() || pos2.first == vdat2.end()) {
-			vdat1.insert(pos1.second, pair<double, unsigned int>(read_identifier1, line_num)); // gives it hint
-			vdat2.insert(pos2.second, pair<double, unsigned int>(read_identifier2, line_num));
-			vdat1.insert({read_identifier2, line_num});
-			vdat2.insert({read_identifier1, line_num});
-			gzprintf(output_file1, "%s%s+\n%s", seq_id1, raw_sequence1, tscore1);
-			gzprintf(output_file2, "%s%s+\n%s", seq_id2, raw_sequence2, tscore2);
-		} else {
-			while (pos1.first != pos1.second) {
-				temp_set.insert(pos1.first->second);
+		bool seen = 0;
+		if (pos1.first != vdat1.end()) {
+			while (!seen && pos1.first != pos1.second) {
+				if (vdat2[pos1.first->second] == read_identifier2) {
+					seen++;
+				}
 				pos1.first++;
 			}
-			unsigned int count = 0;
-			while (count == 0 && pos2.first != pos2.second) {
-				count = temp_set.count(pos2.first->second);
-				pos2.first++;
-			}
-			if (count == 0) {
+		}
+		// seen == 1 denotes duplicate
+		// seen == 0 denotes map1 doesn't contain r1 
+		// or map1 contains r1 but map2 no r2 in corresponding lines
+		if (!seen) {
+			auto pos2 = vdat1.equal_range(read_identifier2);
+			if (pos2.first == vdat1.end()) { // r2 not in map1
 				vdat1.insert(pos1.second, pair<double, unsigned int>(read_identifier1, line_num)); // gives it hint
-				vdat2.insert(pos2.second, pair<double, unsigned int>(read_identifier2, line_num));
-				vdat1.insert({read_identifier2, line_num});
-				vdat2.insert({read_identifier1, line_num});
+				vdat2.insert({line_num, read_identifier2});
 				gzprintf(output_file1, "%s%s+\n%s", seq_id1, raw_sequence1, tscore1);
 				gzprintf(output_file2, "%s%s+\n%s", seq_id2, raw_sequence2, tscore2);
+			} else { // r2 in map1
+				while (!seen && pos2.first != pos2.second) {
+					if (vdat2[pos2.first->second] == read_identifier1) {
+						seen++;
+					}
+					pos2.first++;
+				}
+				if (!seen) {
+					vdat1.insert(pos1.second, pair<double, unsigned int>(read_identifier1, line_num));
+					vdat2.insert({line_num, read_identifier2});
+					gzprintf(output_file1, "%s%s+\n%s", seq_id1, raw_sequence1, tscore1);
+					gzprintf(output_file2, "%s%s+\n%s", seq_id2, raw_sequence2, tscore2);
+				}
 			}
-			temp_set.clear();
 		}
 	}
 	gzclose(input_file1);
@@ -595,7 +587,7 @@ void quantify_reads_rc(string fin1, string fin2, string fout1, string fout2, str
 // PE reads, output removed reads
 void quantify_reads_rc(string fin1, string fin2, string fout1, string fout2, string fremoved1, string fremoved2, string compression_level) 
 {
-	gzFile output_file1 = gzopen(fout1.c_str(), compression_level.c_str());
+	gzFile output_file1 = gzopen(fout1.c_str(), compression_level.c_str());	
 	if(output_file1 == NULL) 
 	{
 		printf("can't open %s file to write\n", fout1.c_str()); 
@@ -641,9 +633,7 @@ void quantify_reads_rc(string fin1, string fin2, string fout1, string fout2, str
 	char * tscore2 = new char[200];  
 
 	unordered_multimap<double, unsigned int> vdat1;
-	unordered_multimap<double, unsigned int> vdat2;
-
-	set<unsigned int> temp_set;
+	unordered_map<unsigned int, double> vdat2;
 
 	double read_identifier1;
 	double read_identifier2;
@@ -673,36 +663,45 @@ void quantify_reads_rc(string fin1, string fin2, string fout1, string fout2, str
 		// check if the read pair has already appeared before
 		// if unseen, keep it; else, skip it 
 		auto pos1 = vdat1.equal_range(read_identifier1);
-		auto pos2 = vdat2.equal_range(read_identifier2);
-		if (pos1.first == vdat1.end() || pos2.first == vdat2.end()) {
-			vdat1.insert(pos1.second, pair<double, unsigned int>(read_identifier1, line_num)); // gives it hint
-			vdat2.insert(pos2.second, pair<double, unsigned int>(read_identifier2, line_num));
-			vdat1.insert({read_identifier2, line_num});
-			vdat2.insert({read_identifier1, line_num});
-			gzprintf(output_file1, "%s%s+\n%s", seq_id1, raw_sequence1, tscore1);
-			gzprintf(output_file2, "%s%s+\n%s", seq_id2, raw_sequence2, tscore2);
-		} else {
-			while (pos1.first != pos1.second) {
-				temp_set.insert(pos1.first->second);
+		bool seen = 0;
+		if (pos1.first != vdat1.end()) {
+			while (!seen && pos1.first != pos1.second) {
+				if (vdat2[pos1.first->second] == read_identifier2) {
+					seen++;
+				}
 				pos1.first++;
 			}
-			unsigned int count = 0;
-			while (count == 0 && pos2.first != pos2.second) {
-				count = temp_set.count(pos2.first->second);
-				pos2.first++;
-			}
-			if (count == 0) {
+		}
+		// seen == 1 denotes duplicate
+		// seen == 0 denotes map1 doesn't contain r1 
+		// or map1 contains r1 but map2 no r2 in corresponding lines
+		if (!seen) {
+			auto pos2 = vdat1.equal_range(read_identifier2);
+			if (pos2.first == vdat1.end()) { // r2 not in map1
 				vdat1.insert(pos1.second, pair<double, unsigned int>(read_identifier1, line_num)); // gives it hint
-				vdat2.insert(pos2.second, pair<double, unsigned int>(read_identifier2, line_num));
-				vdat1.insert({read_identifier2, line_num});
-				vdat2.insert({read_identifier1, line_num});
+				vdat2.insert({line_num, read_identifier2});
 				gzprintf(output_file1, "%s%s+\n%s", seq_id1, raw_sequence1, tscore1);
 				gzprintf(output_file2, "%s%s+\n%s", seq_id2, raw_sequence2, tscore2);
-			} else {
-				gzprintf(removed_file1, "%s%s+\n%s", seq_id1, raw_sequence1, tscore1);
-				gzprintf(removed_file2, "%s%s+\n%s", seq_id2, raw_sequence2, tscore2);
+			} else { // r2 in map1
+				while (!seen && pos2.first != pos2.second) {
+					if (vdat2[pos2.first->second] == read_identifier1) {
+						seen++;
+					}
+					pos2.first++;
+				}
+				if (!seen) {
+					vdat1.insert(pos1.second, pair<double, unsigned int>(read_identifier1, line_num));
+					vdat2.insert({line_num, read_identifier2});
+					gzprintf(output_file1, "%s%s+\n%s", seq_id1, raw_sequence1, tscore1);
+					gzprintf(output_file2, "%s%s+\n%s", seq_id2, raw_sequence2, tscore2);
+				} else {
+					gzprintf(removed_file1, "%s%s+\n%s", seq_id1, raw_sequence1, tscore1);
+					gzprintf(removed_file2, "%s%s+\n%s", seq_id2, raw_sequence2, tscore2);
+				}
 			}
-			temp_set.clear();
+		} else {
+			gzprintf(removed_file1, "%s%s+\n%s", seq_id1, raw_sequence1, tscore1);
+			gzprintf(removed_file2, "%s%s+\n%s", seq_id2, raw_sequence2, tscore2);
 		}
 	}
 	gzclose(input_file1);
@@ -710,7 +709,7 @@ void quantify_reads_rc(string fin1, string fin2, string fout1, string fout2, str
 	gzclose(output_file1);
 	gzclose(output_file2); 
 	gzclose(removed_file1);
-	gzclose(removed_file2); 
+	gzclose(removed_file2);
 
 	vdat1.clear();
 	vdat2.clear();

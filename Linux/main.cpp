@@ -170,6 +170,7 @@ int main(int argc, char ** argv)
 				if (search_suffix != string::npos) { // if can find "fastq" or "fq"
 					fin_copy.erase(search_suffix);
 				}
+
 				char buff[FILENAME_MAX];
 				getcwd(buff, FILENAME_MAX);
 				string current_working_dir(buff); // copy buff
@@ -247,13 +248,13 @@ int main(int argc, char ** argv)
 				if (write_remove) {
 					quantify_reads_rc(fin1, fin2, fout1, fout2, fremoved1, fremoved2, compression_level);
 				} else {
-					quantify_reads_rc(fin1, fin2, fout1, fout2, compression_level);
+					quantify_reads_rc(fin1, fin2, fout1, fout2, compression_level); 
 				}
 			} else {
 				if (write_remove) {
 					quantify_reads(fin1, fin2, fout1, fout2, fremoved1, fremoved2, compression_level);
 				} else {
-					quantify_reads(fin1, fin2, fout1, fout2, compression_level);
+					quantify_reads(fin1, fin2, fout1, fout2, compression_level); 
 				}
 			}
 		}
