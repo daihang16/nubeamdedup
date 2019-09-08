@@ -29,13 +29,13 @@ int main(int argc, char ** argv)
 	string fremoved; 
 	string fremoved1; 
 	string fremoved2; 
-	bool strand = 1; // whether consider reads from complementary strand or not
-	bool write_remove = 0; // whether output removed reads or not
+	bool strand = true; // whether consider reads from complementary strand or not
+	bool write_remove = false; // whether output removed reads or not
 	int gz = 0; // indicating compression level when writing gzipped file, 0-9
 	string compression_level;
 	string file_name_suffix;
 	string removed_name_suffix;
-	bool qtf = 0; // let it run or not 
+	bool qtf = false; // let it run or not 
 
 	for (int i = 1; i < argc; i++) {
 		string str;
@@ -75,7 +75,7 @@ int main(int argc, char ** argv)
 			if (argv[i+1] == NULL || argv[i+1][0] == '-') continue;
 			// fin.clear();
 			fin.assign(argv[i+1]);
-			qtf = 1;
+			qtf = true;
 		}
 		else if (str.compare("--out") == 0 || str.compare("-o") == 0) {
 			if (argv[i+1] == NULL || argv[i+1][0] == '-') continue;
@@ -91,7 +91,7 @@ int main(int argc, char ** argv)
 			if (argv[i+1] == NULL || argv[i+1][0] == '-') continue;
 			fin1.clear();
 			fin1.assign(argv[i+1]);
-			qtf = 1;
+			qtf = true;
 		}
 		else if (str.compare("--in2") == 0 || str.compare("-i2") == 0) {
 			if (argv[i+1] == NULL || argv[i+1][0] == '-') continue;

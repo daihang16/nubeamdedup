@@ -22,7 +22,7 @@ void quantify_reads(string fin, string fout, string compression_level)
 
 	unordered_set<double> vdat;
 
-	double read_identifier;
+	double read_identifier = 0;
 	while (gzgets(input_file, seq_id, 200) &&
 		gzgets(input_file, raw_sequence, 200) &&
 		gzgets(input_file, seq_id_repeat, 200) &&
@@ -77,7 +77,7 @@ void quantify_reads(string fin, string fout, string fremoved, string compression
 
 	unordered_set<double> vdat;
 
-	double read_identifier;
+	double read_identifier = 0;
 	while (gzgets(input_file, seq_id, 200) &&
 		gzgets(input_file, raw_sequence, 200) &&
 		gzgets(input_file, seq_id_repeat, 200) &&
@@ -130,8 +130,8 @@ void quantify_reads_rc(string fin, string fout, string compression_level)
 
 	unordered_set<double> vdat;
 
-	double read_identifier;
-	double read_identifier_rc;
+	double read_identifier = 0;
+	double read_identifier_rc = 0;
 	while (gzgets(input_file, seq_id, 200) &&
 		gzgets(input_file, raw_sequence, 200) &&
 		gzgets(input_file, seq_id_repeat, 200) &&
@@ -196,8 +196,8 @@ void quantify_reads_rc(string fin, string fout, string fremoved, string compress
 
 	unordered_set<double> vdat;
 
-	double read_identifier;
-	double read_identifier_rc;
+	double read_identifier = 0;
+	double read_identifier_rc = 0;
 	while (gzgets(input_file, seq_id, 200) &&
 		gzgets(input_file, raw_sequence, 200) &&
 		gzgets(input_file, seq_id_repeat, 200) &&
@@ -276,8 +276,8 @@ void quantify_reads(string fin1, string fin2, string fout1, string fout2, string
 	unordered_multimap<double, unsigned int> vdat1;
 	unordered_map<unsigned int, double> vdat2;
 
-	double read_identifier1;
-	double read_identifier2;
+	double read_identifier1 = 0;
+	double read_identifier2 = 0;
 
 	unsigned int line_num = 0;
 	while (gzgets(input_file1, seq_id1, 200) &&
@@ -310,10 +310,10 @@ void quantify_reads(string fin1, string fin2, string fout1, string fout2, string
 			gzprintf(output_file1, "%s%s+\n%s", seq_id1, raw_sequence1, tscore1);
 			gzprintf(output_file2, "%s%s+\n%s", seq_id2, raw_sequence2, tscore2);
 		} else {
-			bool seen = 0;
+			bool seen = false;
 			while (!seen && pos1.first != pos1.second) {
 				if (vdat2[pos1.first->second] == read_identifier2) {
-					seen++;
+					seen = true;
 				}
 				pos1.first++;
 			}
@@ -393,8 +393,8 @@ void quantify_reads(string fin1, string fin2, string fout1, string fout2, string
 	unordered_multimap<double, unsigned int> vdat1;
 	unordered_map<unsigned int, double> vdat2;
 
-	double read_identifier1;
-	double read_identifier2;
+	double read_identifier1 = 0;
+	double read_identifier2 = 0;
 
 	unsigned int line_num = 0;
 	while (gzgets(input_file1, seq_id1, 200) &&
@@ -427,10 +427,10 @@ void quantify_reads(string fin1, string fin2, string fout1, string fout2, string
 			gzprintf(output_file1, "%s%s+\n%s", seq_id1, raw_sequence1, tscore1);
 			gzprintf(output_file2, "%s%s+\n%s", seq_id2, raw_sequence2, tscore2);
 		} else {
-			bool seen = 0;
+			bool seen = false;
 			while (!seen && pos1.first != pos1.second) {
 				if (vdat2[pos1.first->second] == read_identifier2) {
-					seen++;
+					seen = true;
 				}
 				pos1.first++;
 			}
@@ -504,8 +504,8 @@ void quantify_reads_rc(string fin1, string fin2, string fout1, string fout2, str
 	unordered_multimap<double, unsigned int> vdat1;
 	unordered_map<unsigned int, double> vdat2;
 
-	double read_identifier1;
-	double read_identifier2;
+	double read_identifier1 = 0;
+	double read_identifier2 = 0;
 
 	unsigned int line_num = 0;
 	while (gzgets(input_file1, seq_id1, 200) &&
@@ -532,11 +532,11 @@ void quantify_reads_rc(string fin1, string fin2, string fout1, string fout2, str
 		// check if the read pair has already appeared before
 		// if unseen, keep it; else, skip it 
 		auto pos1 = vdat1.equal_range(read_identifier1);
-		bool seen = 0;
+		bool seen = false;
 		if (pos1.first != vdat1.end()) {
 			while (!seen && pos1.first != pos1.second) {
 				if (vdat2[pos1.first->second] == read_identifier2) {
-					seen++;
+					seen = true;
 				}
 				pos1.first++;
 			}
@@ -554,7 +554,7 @@ void quantify_reads_rc(string fin1, string fin2, string fout1, string fout2, str
 			} else { // r2 in map1
 				while (!seen && pos2.first != pos2.second) {
 					if (vdat2[pos2.first->second] == read_identifier1) {
-						seen++;
+						seen = true;
 					}
 					pos2.first++;
 				}
@@ -635,8 +635,8 @@ void quantify_reads_rc(string fin1, string fin2, string fout1, string fout2, str
 	unordered_multimap<double, unsigned int> vdat1;
 	unordered_map<unsigned int, double> vdat2;
 
-	double read_identifier1;
-	double read_identifier2;
+	double read_identifier1 = 0;
+	double read_identifier2 = 0;
 
 	unsigned int line_num = 0;
 	while (gzgets(input_file1, seq_id1, 200) &&
@@ -663,11 +663,11 @@ void quantify_reads_rc(string fin1, string fin2, string fout1, string fout2, str
 		// check if the read pair has already appeared before
 		// if unseen, keep it; else, skip it 
 		auto pos1 = vdat1.equal_range(read_identifier1);
-		bool seen = 0;
+		bool seen = false;
 		if (pos1.first != vdat1.end()) {
 			while (!seen && pos1.first != pos1.second) {
 				if (vdat2[pos1.first->second] == read_identifier2) {
-					seen++;
+					seen = true;
 				}
 				pos1.first++;
 			}
@@ -685,7 +685,7 @@ void quantify_reads_rc(string fin1, string fin2, string fout1, string fout2, str
 			} else { // r2 in map1
 				while (!seen && pos2.first != pos2.second) {
 					if (vdat2[pos2.first->second] == read_identifier1) {
-						seen++;
+						seen = true;
 					}
 					pos2.first++;
 				}
