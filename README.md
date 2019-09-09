@@ -15,7 +15,7 @@ Removing exact PCR duplicates for sequencing reads. **Currently we do not offer 
 
 `make`
 
-`make install`
+`sudo make install`
 ### Compile nubeam-dedup
 Run the following commands:
 
