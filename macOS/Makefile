@@ -22,7 +22,7 @@ CFLAGS += -Wall -m64 -std=c++11
 #see https://stackoverflow.com/a/52511069 for installation of libz.a
 STATICLIBS = /usr/local/lib/libz.a
 
-LIBS = -lm -lz
+LIBS = -lm #-lz
 
 SRCSMAIN = main.cpp
 SRCSFUNC = functions.cpp
