@@ -1,7 +1,28 @@
 # nubeam-dedup
 Removing exact PCR duplicates for sequencing reads. **Currently we do not offer license. Use the tool or copy source code by author's permission only**.
 ## Compiling:
-`cd Linux/`
+### Dependency
+`zlib` is required to compile. To install `zlib`, run the following commands:
+
+`wget https://www.zlib.net/zlib1211.zip`
+
+`unzip zlib1211.zip`
+
+`cd zlib-1.2.11/`
+
+`./configure`
+
+`make`
+
+`make install`
+### Compile nubeam-dedup
+Run the following commands:
+
+`wget https://github.com/daihang16/nubeamdedup/archive/master.zip`
+
+`unzip master.zip`
+
+`cd nubeamdedup-master/Linux/` or `cd nubeamdedup-master/macOS/`
 
 `make && make clean`
 
@@ -11,7 +32,7 @@ Removing exact PCR duplicates for sequencing reads. **Currently we do not offer 
 
 You should see both output files have 276884 lines.
 
-We also offer pre-compliled executable file. The Linux version was compliled on Red Hat Enterprise Linux Server 7.0 (Maipo). The compiler gcc has the version of 4.8.2 20140120 (Red Hat 4.8.2-16). 
+We also offer pre-compliled executable file for Linux. The executable file was compliled on Red Hat Enterprise Linux Server 7.0 (Maipo) by compiler gcc with the version of 4.8.2 20140120 (Red Hat 4.8.2-16). C++11 was used.
 
 ## Usage:
 `./nubeam-dedup -h` gives you the following messages:
