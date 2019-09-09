@@ -19,9 +19,11 @@ Removing exact PCR duplicates for sequencing reads. **Currently we do not offer 
 ### Compile nubeam-dedup
 Run the following commands:
 
-`wget https://github.com/daihang16/nubeamdedup/archive/master.zip`
+On `Linux` `wget --no-check-certificate --content-disposition https://github.com/daihang16/nubeamdedup/archive/master.zip`
 
-`unzip master.zip`
+On `macOS` `curl -LJO https://github.com/daihang16/nubeamdedup/archive/master.zip`
+
+`unzip nubeamdedup-master.zip`
 
 `cd nubeamdedup-master/Linux/` or `cd nubeamdedup-master/macOS/`
 
