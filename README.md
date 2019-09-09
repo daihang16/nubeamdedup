@@ -4,7 +4,8 @@ Removing exact PCR duplicates for sequencing reads. **Currently we do not offer 
 ### Dependency
 `zlib` is required to compile. To install `zlib`, run the following commands:
 
-`wget https://www.zlib.net/zlib1211.zip`
+`wget https://www.zlib.net/zlib1211.zip` on `Linux` or 
+`curl -o zlib1211.zip https://www.zlib.net/zlib1211.zip` on `macOS`
 
 `unzip zlib1211.zip`
 
