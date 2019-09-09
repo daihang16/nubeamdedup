@@ -32,9 +32,9 @@ int main(int argc, char ** argv)
 	bool strand = true; // whether consider reads from complementary strand or not
 	bool write_remove = false; // whether output removed reads or not
 	int gz = 0; // indicating compression level when writing gzipped file, 0-9
-	string compression_level;
-	string file_name_suffix;
-	string removed_name_suffix;
+	string compression_level = "wT"; // default, change if gz > 0
+	string file_name_suffix = ".uniq.fastq"; // default, change if gz > 0
+	string removed_name_suffix = ".removed.fastq"; // default, change if gz > 0
 	bool qtf = false; // let it run or not 
 
 	for (int i = 1; i < argc; i++) {
@@ -147,14 +147,10 @@ int main(int argc, char ** argv)
 	}
 	
 	if (qtf) {
-		if (gz) { // determine compression level
+		if (gz > 0) { // determine compression level
 			compression_level = "wb" + to_string(gz);
 			file_name_suffix = ".uniq.fastq.gz";
 			removed_name_suffix = ".removed.fastq.gz";
-		} else {
-			compression_level = "wT";
-			file_name_suffix = ".uniq.fastq";
-			removed_name_suffix = ".removed.fastq";
 		}
 		if (fin1 == "") { // SE reads
 			if (fout == "" || fremoved == "") { // means we need to figure out the file name by ourselves

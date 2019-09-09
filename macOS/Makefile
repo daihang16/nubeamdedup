@@ -18,6 +18,8 @@ endif
 
 CFLAGS += -Wall -m64 -std=c++11
 
+#on mac, try ls /usr/lib/libz.*, there are some libz files in it.
+#see https://stackoverflow.com/a/52511069 for installation of libz.a
 STATICLIBS = /usr/local/lib/libz.a
 
 LIBS = -lm -lz
@@ -33,7 +35,7 @@ all: nubeam-dedup
 
 ## note it's crutial to use -static-libgcc instead of static; 
 nubeam-dedup: functions.o main.o
-	$(CC) $(CFLAGS) functions.o main.o $(LIBS) -o nubeam-dedup
+	$(CC) $(CFLAGS) functions.o main.o $(STATICLIBS) $(LIBS) -o nubeam-dedup
 
 main.o: $(SRCSMAIN) $(HEADER) functions.o
 	$(CC) $(CFLAGS) -c $(SRCSMAIN)
