@@ -1,8 +1,19 @@
 # nubeam-dedup
 Removing exact PCR duplicates for sequencing reads. **Currently we do not offer license. Use the tool or copy source code by author's permission only**.
-## Usage:
-To complile, go to the `Linux` or `macOS` directory and type `make && make clean`. We also offer pre-compliled executable file.
+## Compiling:
+`cd Linux/`
 
+`make && make clean`
+
+`./nubeam-dedup -i1 ../toydata/1.fq.gz -i2 ../toydata/2.fq.gz`
+
+`wc -l *.fastq`
+
+You should see both output files have 276884 lines.
+
+We also offer pre-compliled executable file. The Linux version was compliled on Red Hat Enterprise Linux Server 7.0 (Maipo). The compiler gcc has the version of 4.8.2 20140120 (Red Hat 4.8.2-16). 
+
+## Usage:
 `./nubeam-dedup -h` gives you the following messages:
 ```
 ./nubeam-dedup [-i -o -d    -i1 -i2 -o1 -o2 -d1 -d2    -s -r -z -h]
