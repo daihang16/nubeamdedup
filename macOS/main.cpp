@@ -73,39 +73,32 @@ int main(int argc, char ** argv)
 		}
 		else if (str.compare("--in") == 0 || str.compare("-i") == 0) {
 			if (argv[i+1] == NULL || argv[i+1][0] == '-') continue;
-			// fin.clear();
 			fin.assign(argv[i+1]);
 			qtf = true;
 		}
 		else if (str.compare("--out") == 0 || str.compare("-o") == 0) {
 			if (argv[i+1] == NULL || argv[i+1][0] == '-') continue;
-			// fout.clear();
 			fout.assign(argv[i+1]);
 		}
 		else if (str.compare("--duplicate") == 0 || str.compare("-d") == 0) {
 			if (argv[i+1] == NULL || argv[i+1][0] == '-') continue;
-			// fremoved.clear();
 			fremoved.assign(argv[i+1]);
 		}
 		else if (str.compare("--in1") == 0 || str.compare("-i1") == 0) {
 			if (argv[i+1] == NULL || argv[i+1][0] == '-') continue;
-			fin1.clear();
 			fin1.assign(argv[i+1]);
 			qtf = true;
 		}
 		else if (str.compare("--in2") == 0 || str.compare("-i2") == 0) {
 			if (argv[i+1] == NULL || argv[i+1][0] == '-') continue;
-			fin2.clear();
 			fin2.assign(argv[i+1]);
 		}
 		else if (str.compare("--out1") == 0 || str.compare("-o1") == 0) {
 			if (argv[i+1] == NULL || argv[i+1][0] == '-') continue;
-			fout1.clear();
 			fout1.assign(argv[i+1]);
 		}
 		else if (str.compare("--out2") == 0 || str.compare("-o2") == 0) {
 			if (argv[i+1] == NULL || argv[i+1][0] == '-') continue;
-			fout2.clear();
 			fout2.assign(argv[i+1]);
 		}
 		else if (str.compare("--duplicate1") == 0 || str.compare("-d1") == 0) {
@@ -152,8 +145,8 @@ int main(int argc, char ** argv)
 			file_name_suffix = ".uniq.fastq.gz";
 			removed_name_suffix = ".removed.fastq.gz";
 		}
-		if (fin1 == "") { // SE reads
-			if (fout == "" || fremoved == "") { // means we need to figure out the file name by ourselves
+		if (fin1.empty()) { // SE reads
+			if (fout.empty() || fremoved.empty()) { // means we need to figure out the file name by ourselves
 				string fin_copy(fin); // copy fin
 				auto search_path = fin_copy.rfind("/");
 				if (search_path != string::npos) { // if find '/'
@@ -170,11 +163,11 @@ int main(int argc, char ** argv)
 				char buff[FILENAME_MAX];
 				getcwd(buff, FILENAME_MAX);
 				string current_working_dir(buff); // copy buff
-				if (fout == "") { // which is default, else use what suggested by user
+				if (fout.empty()) { // which is default, else use what suggested by user
 					fout = current_working_dir + "/" + fin_copy + file_name_suffix;
 				}
 				if (write_remove) {
-					if (fremoved == "") { // which is default, else use what suggested by user
+					if (fremoved.empty()) { // which is default, else use what suggested by user
 						fremoved = current_working_dir + "/" + fin_copy + removed_name_suffix;
 					}
 					cout << "Output removed duplicated reads to " << fremoved << "\n";
@@ -196,7 +189,7 @@ int main(int argc, char ** argv)
 				}
 			}
 		} else { // PE reads
-			if (fout1 == "" || fremoved1 == "") { // means we need to figure out the file name by ourselves
+			if (fout1.empty() || fremoved1.empty()) { // means we need to figure out the file name by ourselves
 				string fin_copy1(fin1); // copy fin1
 				auto search_path1 = fin_copy1.rfind("/");
 				if (search_path1 != string::npos) { // if find '/'
@@ -224,14 +217,12 @@ int main(int argc, char ** argv)
 				char buff[FILENAME_MAX];
 				getcwd(buff, FILENAME_MAX);
 				string current_working_dir(buff); // copy buff
-				fout1 = current_working_dir + "/" + fin_copy1 + file_name_suffix;
-				fout2 = current_working_dir + "/" + fin_copy2 + file_name_suffix;
-				if (fout1 == "") { // which is default, else use what suggested by user
+				if (fout1.empty()) { // which is default, else use what suggested by user
 					fout1 = current_working_dir + "/" + fin_copy1 + file_name_suffix;
 					fout2 = current_working_dir + "/" + fin_copy2 + file_name_suffix;
 				}
 				if (write_remove) {
-					if (fremoved1 == "") { // which is default, else use what suggested by user
+					if (fremoved1.empty()) { // which is default, else use what suggested by user
 						fremoved1 = current_working_dir + "/" + fin_copy1 + removed_name_suffix;
 						fremoved2 = current_working_dir + "/" + fin_copy2 + removed_name_suffix;
 					}
