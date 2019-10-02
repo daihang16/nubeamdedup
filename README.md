@@ -1,5 +1,5 @@
 # nubeam-dedup
-Removing exact PCR duplicates for sequencing reads. **Currently we do not offer license. Use the tool or copy source code by author's permission only**.
+Removing exact PCR duplicates for sequencing reads.
 ## Compiling:
 ### Dependency
 `zlib` is required to compile. To install `zlib`, run the following commands:
