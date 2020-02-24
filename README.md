@@ -1,37 +1,49 @@
 # nubeam-dedup
-Removing exact PCR duplicates for sequencing reads.
+`nubeam-dedup` is a fast and easy-to-use bioinformatics tool removing exact PCR duplicates for sequencing reads, single-end or paired-end. If you use `nubeam-dedup`, please kindly cite:
+
+Hang Dai and Yongtao Guan, **Nubeam-dedup: a fast and RAM-efficient tool to de-duplicate sequencing reads without mapping.** *Bioinformatics* (2020), DOI: 10.1093/bioinformatics/btaa112
+
 ## Compiling:
 ### Dependency
-`zlib` is required to compile. To install `zlib`, run the following commands:
+`zlib` is required to compile. For most computers it was already installed. If not, run the following commands to install `zlib`:
 
-`wget https://www.zlib.net/zlib1211.zip` on `Linux` or 
-`curl -o zlib1211.zip https://www.zlib.net/zlib1211.zip` on `macOS`
-
-`unzip zlib1211.zip`
-
-`cd zlib-1.2.11/`
-
-`./configure`
-
-`make`
-
-`sudo make install`
+On `Linux`:
+```Shell
+wget https://www.zlib.net/zlib1211.zip
+```
+On `macOS`:
+```Shell
+curl -o zlib1211.zip https://www.zlib.net/zlib1211.zip
+```
+Then:
+```Shell
+unzip zlib1211.zip
+cd zlib-1.2.11/
+./configure
+make
+sudo make install
+```
 ### Compile nubeam-dedup
 Run the following commands:
 
-On `Linux` `wget --no-check-certificate --content-disposition https://github.com/daihang16/nubeamdedup/archive/master.zip`
-
-On `macOS` `curl -LJO https://github.com/daihang16/nubeamdedup/archive/master.zip`
-
-`unzip nubeamdedup-master.zip`
-
-`cd nubeamdedup-master/Linux/` or `cd nubeamdedup-master/macOS/`
-
-`make && make clean`
-
-`./nubeam-dedup -i1 ../toydata/1.fq.gz -i2 ../toydata/2.fq.gz`
-
-`wc -l *.fastq`
+On `Linux`:
+```Shell
+wget --no-check-certificate --content-disposition https://github.com/daihang16/nubeamdedup/archive/master.zip
+unzip nubeamdedup-master.zip
+cd nubeamdedup-master/Linux/
+```
+On `macOS`:
+```Shell
+curl -LJO https://github.com/daihang16/nubeamdedup/archive/master.zip
+unzip nubeamdedup-master.zip
+cd nubeamdedup-master/macOS/
+```
+Then:
+```Shell
+make && make clean
+./nubeam-dedup -i1 ../toydata/1.fq.gz -i2 ../toydata/2.fq.gz
+wc -l *.fastq
+```
 
 You should see both output files have 276884 lines.
 
