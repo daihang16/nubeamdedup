@@ -85,7 +85,9 @@ Miscellaneous parameters:
     
     The command gives the following output on screen:
     
-    `Output unique reads to /current/working/directory/read.uniq.fastq`
+    ```
+    Output unique reads to /current/working/directory/read.uniq.fastq
+    ```
   - Do not consider reads from complementary strand
     
     `./nubeam-dedup -i read.fq -s 0`
@@ -95,9 +97,10 @@ Miscellaneous parameters:
     
     The command gives the following output on screen:
     
-    `Output removed duplicated reads to /current/working/directory/read.removed.fastq.gz`
-    
-    `Output unique reads to /current/working/directory/read.uniq.fastq.gz`
+    ```
+    Output removed duplicated reads to /current/working/directory/read.removed.fastq.gz    
+    Output unique reads to /current/working/directory/read.uniq.fastq.gz
+    ```
 
 - For paired-end reads
   - Consider reads from complementary strand (default)
@@ -106,9 +109,10 @@ Miscellaneous parameters:
     
     The command gives the following output on screen:
     
-    `Output unique read pairs read 1 to /current/working/directory/reads1.uniq.fastq`
-    
-    `Output unique read pairs read 2 to /current/working/directory/reads2.uniq.fastq`
+    ```
+    Output unique read pairs read 1 to /current/working/directory/reads1.uniq.fastq    
+    Output unique read pairs read 2 to /current/working/directory/reads2.uniq.fastq
+    ```
   - Do not consider reads from complementary strand
   
     `./nubeam-dedup -i1 read1.fastq.gz -i2 read2.fastq.gz -s 0`
@@ -118,10 +122,9 @@ Miscellaneous parameters:
     
     The command gives the following output on screen:
     
-    `Output removed duplicated read pairs read 1 to /current/working/directory/read1.removed.fastq.gz`
-    
-    `Output removed duplicated read pairs read 2 to /current/working/directory/read2.removed.fastq.gz`
-    
-    `Output unique read pairs read 1 to /current/working/directory/reads1.uniq.fastq.gz`
-    
-    `Output unique read pairs read 2 to /current/working/directory/reads2.uniq.fastq.gz`
+    ```
+    Output removed duplicated read pairs read 1 to /current/working/directory/read1.removed.fastq.gz
+    Output removed duplicated read pairs read 2 to /current/working/directory/read2.removed.fastq.gz    
+    Output unique read pairs read 1 to /current/working/directory/reads1.uniq.fastq.gz    
+    Output unique read pairs read 2 to /current/working/directory/reads2.uniq.fastq.gz
+    ```
