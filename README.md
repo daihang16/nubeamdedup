@@ -81,7 +81,9 @@ Miscellaneous parameters:
 - For single-end reads
   - Consider reads from complementary strand (default)
   
-    `./nubeam-dedup -i read.fq`
+    ```Shell
+    ./nubeam-dedup -i read.fq
+    ```
     
     The command gives the following output on screen:
     
@@ -90,10 +92,14 @@ Miscellaneous parameters:
     ```
   - Do not consider reads from complementary strand
     
-    `./nubeam-dedup -i read.fq -s 0`
+    ```Shell
+    ./nubeam-dedup -i read.fq -s 0
+    ```
   - Consider reads from complementary strand (default), output gzipped file with a compression level of 6, output removed duplicated reads 
   
-    `./nubeam-dedup -i read.fq -z 6 -r 1`
+    ```Shell
+    ./nubeam-dedup -i read.fq -z 6 -r 1
+    ```
     
     The command gives the following output on screen:
     
@@ -105,7 +111,9 @@ Miscellaneous parameters:
 - For paired-end reads
   - Consider reads from complementary strand (default)
   
-    `./nubeam-dedup -i1 read1.fastq.gz -i2 read2.fastq.gz`
+    ```Shell
+    ./nubeam-dedup -i1 read1.fastq.gz -i2 read2.fastq.gz
+    ```
     
     The command gives the following output on screen:
     
@@ -115,10 +123,14 @@ Miscellaneous parameters:
     ```
   - Do not consider reads from complementary strand
   
-    `./nubeam-dedup -i1 read1.fastq.gz -i2 read2.fastq.gz -s 0`
+    ```Shell
+    ./nubeam-dedup -i1 read1.fastq.gz -i2 read2.fastq.gz -s 0
+    ```
   - Consider reads from complementary strand (default), output gzipped file with a compression level of 6, output removed duplicated reads
   
-    `./nubeam-dedup -i1 read1.fastq.gz -i2 read2.fastq.gz -z 6 -r 1`
+    ```Shell
+    ./nubeam-dedup -i1 read1.fastq.gz -i2 read2.fastq.gz -z 6 -r 1
+    ```
     
     The command gives the following output on screen:
     
