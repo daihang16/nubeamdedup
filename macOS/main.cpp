@@ -67,7 +67,7 @@ int main(int argc, char ** argv)
 			cout << "--gz or -z: Compression level of output file. Accept integer 0 (default) to 9. " << 
 			"If 0 (default), the output data will not be compressed and will be written to plain text file; " << 
 			"otherwise, the output data will be written to gzip format file, with the compression level suggested by user. " << 
-			"If compression is needed, a compression level of 6 is recommended as a compromise between speed and compression.\n\n";
+			"If compression is needed, a compression level less than 3 is recommended as a compromise between speed and compression.\n\n";
 			cout << "-h: print this help\n"; 
 			exit(0); 
 		}
