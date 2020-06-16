@@ -6,13 +6,13 @@ void quantify_reads(string fin, string fout, string compression_level)
 	gzFile output_file = gzopen(fout.c_str(), compression_level.c_str());
 	if (output_file == NULL) {
 		printf("can't open %s file to write\n", fout.c_str()); 
-		exit(0); 
+		exit(EX_CANTCREAT); 
 	}
 
 	gzFile input_file = gzopen(fin.c_str(), "r"); 
 	if (input_file == NULL) {
 		printf("can't open %s file to read. \n", fin.c_str()); 
-		exit(0); 
+		exit(EX_NOINPUT); 
 	}
 	
 	char * seq_id = new char[200];  
@@ -55,19 +55,19 @@ void quantify_reads(string fin, string fout, string fremoved, string compression
 	gzFile output_file = gzopen(fout.c_str(), compression_level.c_str());
 	if (output_file == NULL) {
 		printf("can't open %s file to write\n", fout.c_str()); 
-		exit(0); 
+		exit(EX_CANTCREAT); 
 	}
 
 	gzFile removed_file = gzopen(fremoved.c_str(), compression_level.c_str());
 	if (removed_file == NULL) {
 		printf("can't open %s file to write\n", fremoved.c_str()); 
-		exit(0);
+		exit(EX_CANTCREAT);
 	}
 
 	gzFile input_file = gzopen(fin.c_str(), "r"); 
 	if (input_file == NULL) {
 		printf("can't open %s file to read. \n", fin.c_str()); 
-		exit(0); 
+		exit(EX_NOINPUT); 
 	}
 	
 	char * seq_id = new char[200];  
@@ -114,13 +114,13 @@ void quantify_reads_rc(string fin, string fout, string compression_level)
 	if(output_file == NULL) 
 	{
 		printf("can't open %s file to write\n", fout.c_str()); 
-		exit(0); 
+		exit(EX_CANTCREAT); 
 	}
 
 	gzFile input_file = gzopen(fin.c_str(), "r"); 
 	if(input_file == NULL) {
 		printf("can't open %s file to read. \n", fin.c_str()); 
-		exit(0); 
+		exit(EX_NOINPUT); 
 	}
 	
 	char * seq_id = new char[200];  
@@ -174,19 +174,19 @@ void quantify_reads_rc(string fin, string fout, string fremoved, string compress
 	if(output_file == NULL) 
 	{
 		printf("can't open %s file to write\n", fout.c_str()); 
-		exit(0); 
+		exit(EX_CANTCREAT); 
 	}
 
 	gzFile removed_file = gzopen(fremoved.c_str(), compression_level.c_str());
 	if (removed_file == NULL) {
 		printf("can't open %s file to write\n", fremoved.c_str()); 
-		exit(0);
+		exit(EX_CANTCREAT);
 	}
 
 	gzFile input_file = gzopen(fin.c_str(), "r"); 
 	if(input_file == NULL) {
 		printf("can't open %s file to read. \n", fin.c_str()); 
-		exit(0); 
+		exit(EX_NOINPUT); 
 	}
 	
 	char * seq_id = new char[200];  
@@ -243,24 +243,24 @@ void quantify_reads(string fin1, string fin2, string fout1, string fout2, string
 	if(output_file1 == NULL) 
 	{
 		printf("can't open %s file to write\n", fout1.c_str()); 
-		exit(0); 
+		exit(EX_CANTCREAT); 
 	}
 	gzFile output_file2 = gzopen(fout2.c_str(), compression_level.c_str()); 
 	if(output_file2 == NULL) 
 	{
 		printf("can't open %s file to write\n", fout2.c_str()); 
-		exit(0); 
+		exit(EX_CANTCREAT); 
 	}
 
 	gzFile input_file1 = gzopen(fin1.c_str(), "r"); 
 	if(input_file1 == NULL) {
 		printf("can't open %s file to read. \n", fin1.c_str()); 
-		exit(0); 
+		exit(EX_NOINPUT); 
 	}
 	gzFile input_file2 = gzopen(fin2.c_str(), "r"); 
 	if(input_file2 == NULL) {
 		printf("can't open %s file to read. \n", fin2.c_str()); 
-		exit(0); 
+		exit(EX_NOINPUT); 
 	}
 	
 	char * seq_id1 = new char[200];  
@@ -349,35 +349,35 @@ void quantify_reads(string fin1, string fin2, string fout1, string fout2, string
 	if(output_file1 == NULL) 
 	{
 		printf("can't open %s file to write\n", fout1.c_str()); 
-		exit(0); 
+		exit(EX_CANTCREAT); 
 	}
 	gzFile output_file2 = gzopen(fout2.c_str(), compression_level.c_str()); 
 	if(output_file2 == NULL) 
 	{
 		printf("can't open %s file to write\n", fout2.c_str()); 
-		exit(0); 
+		exit(EX_CANTCREAT); 
 	}
 
 	gzFile removed_file1 = gzopen(fremoved1.c_str(), compression_level.c_str());
 	if (removed_file1 == NULL) {
 		printf("can't open %s file to write\n", fremoved1.c_str()); 
-		exit(0);
+		exit(EX_CANTCREAT);
 	}
 	gzFile removed_file2 = gzopen(fremoved2.c_str(), compression_level.c_str());
 	if (removed_file2 == NULL) {
 		printf("can't open %s file to write\n", fremoved2.c_str()); 
-		exit(0);
+		exit(EX_CANTCREAT);
 	}
 
 	gzFile input_file1 = gzopen(fin1.c_str(), "r"); 
 	if(input_file1 == NULL) {
 		printf("can't open %s file to read. \n", fin1.c_str()); 
-		exit(0); 
+		exit(EX_NOINPUT); 
 	}
 	gzFile input_file2 = gzopen(fin2.c_str(), "r"); 
 	if(input_file2 == NULL) {
 		printf("can't open %s file to read. \n", fin2.c_str()); 
-		exit(0); 
+		exit(EX_NOINPUT); 
 	}
 	
 	char * seq_id1 = new char[200];  
@@ -471,24 +471,24 @@ void quantify_reads_rc(string fin1, string fin2, string fout1, string fout2, str
 	if(output_file1 == NULL) 
 	{
 		printf("can't open %s file to write\n", fout1.c_str()); 
-		exit(0); 
+		exit(EX_CANTCREAT); 
 	}
 	gzFile output_file2 = gzopen(fout2.c_str(), compression_level.c_str()); 
 	if(output_file2 == NULL) 
 	{
 		printf("can't open %s file to write\n", fout2.c_str()); 
-		exit(0); 
+		exit(EX_CANTCREAT); 
 	}
 
 	gzFile input_file1 = gzopen(fin1.c_str(), "r"); 
 	if(input_file1 == NULL) {
 		printf("can't open %s file to read. \n", fin1.c_str()); 
-		exit(0); 
+		exit(EX_NOINPUT); 
 	}
 	gzFile input_file2 = gzopen(fin2.c_str(), "r"); 
 	if(input_file2 == NULL) {
 		printf("can't open %s file to read. \n", fin2.c_str()); 
-		exit(0); 
+		exit(EX_NOINPUT); 
 	}
 	
 	char * seq_id1 = new char[200];  
@@ -591,35 +591,35 @@ void quantify_reads_rc(string fin1, string fin2, string fout1, string fout2, str
 	if(output_file1 == NULL) 
 	{
 		printf("can't open %s file to write\n", fout1.c_str()); 
-		exit(0); 
+		exit(EX_CANTCREAT); 
 	}
 	gzFile output_file2 = gzopen(fout2.c_str(), compression_level.c_str()); 
 	if(output_file2 == NULL) 
 	{
 		printf("can't open %s file to write\n", fout2.c_str()); 
-		exit(0); 
+		exit(EX_CANTCREAT); 
 	}
 
 	gzFile removed_file1 = gzopen(fremoved1.c_str(), compression_level.c_str());
 	if (removed_file1 == NULL) {
 		printf("can't open %s file to write\n", fremoved1.c_str()); 
-		exit(0);
+		exit(EX_CANTCREAT);
 	}
 	gzFile removed_file2 = gzopen(fremoved2.c_str(), compression_level.c_str());
 	if (removed_file2 == NULL) {
 		printf("can't open %s file to write\n", fremoved2.c_str()); 
-		exit(0);
+		exit(EX_CANTCREAT);
 	}
 
 	gzFile input_file1 = gzopen(fin1.c_str(), "r"); 
 	if(input_file1 == NULL) {
 		printf("can't open %s file to read. \n", fin1.c_str()); 
-		exit(0); 
+		exit(EX_NOINPUT); 
 	}
 	gzFile input_file2 = gzopen(fin2.c_str(), "r"); 
 	if(input_file2 == NULL) {
 		printf("can't open %s file to read. \n", fin2.c_str()); 
-		exit(0); 
+		exit(EX_NOINPUT); 
 	}
 	
 	char * seq_id1 = new char[200];  

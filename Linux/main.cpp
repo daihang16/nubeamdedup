@@ -113,7 +113,7 @@ int main(int argc, char ** argv)
 			if (argv[i+1] == NULL || argv[i+1][0] == '-') continue;
 			if (!isdigit(argv[i+1][0])) {
 				printf("wrong augument after option --strand.\n");
-				exit(0);
+				exit(EX_USAGE);
 			}
 			strand = atoi(argv[i+1]);
 		}
@@ -121,7 +121,7 @@ int main(int argc, char ** argv)
 			if (argv[i+1] == NULL || argv[i+1][0] == '-') continue;
 			if (!isdigit(argv[i+1][0])) {
 				printf("wrong augument after option --remove.\n");
-				exit(0);
+				exit(EX_USAGE);
 			}
 			write_remove = atoi(argv[i+1]);
 		}
@@ -129,13 +129,13 @@ int main(int argc, char ** argv)
 			if (argv[i+1] == NULL || argv[i+1][0] == '-') continue;
 			if (!isdigit(argv[i+1][0])) {
 				printf("wrong augument after option --gz.\n");
-				exit(0);
+				exit(EX_USAGE);
 			}
 			gz = atoi(argv[i+1]);
 		}
 		else {
 			fprintf(stderr,"Bad option %s\n", argv[i]);
-			exit(0);
+			exit(EX_USAGE);
 		}
 	}
 	
@@ -245,10 +245,11 @@ int main(int argc, char ** argv)
 				}
 			}
 		}
-		return 1; 
+		return 0; 
 	} else {
 		cerr << "No input file(s). Use ./nubeam-dedup -h for more options.\n"; 
-		exit(0);
+		exit(EX_USAGE);
+		return EX_USAGE;
 	}
 	return 0; 
 }
