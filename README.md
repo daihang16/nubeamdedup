@@ -51,7 +51,7 @@ We also offer pre-compliled executable file for Linux. The executable file was c
 
 ## Usage:
 `./nubeam-dedup -h` gives you the following messages:
-```
+```console
 ./nubeam-dedup [-i -o -d    -i1 -i2 -o1 -o2 -d1 -d2    -s -r -z -h]
 
 Remove exact PCR duplicates for sequencing reads in (gzipped) fastq format.
@@ -87,7 +87,7 @@ Miscellaneous parameters:
     
     The command gives the following output on screen:
     
-    ```
+    ```console
     Output unique reads to /current/working/directory/read.uniq.fastq
     ```
   - Do not consider reads from complementary strand
@@ -103,7 +103,7 @@ Miscellaneous parameters:
     
     The command gives the following output on screen:
     
-    ```
+    ```console
     Output removed duplicated reads to /current/working/directory/read.removed.fastq.gz    
     Output unique reads to /current/working/directory/read.uniq.fastq.gz
     ```
@@ -117,7 +117,7 @@ Miscellaneous parameters:
     
     The command gives the following output on screen:
     
-    ```
+    ```console
     Output unique read pairs read 1 to /current/working/directory/reads1.uniq.fastq    
     Output unique read pairs read 2 to /current/working/directory/reads2.uniq.fastq
     ```
@@ -134,7 +134,7 @@ Miscellaneous parameters:
     
     The command gives the following output on screen:
     
-    ```
+    ```console
     Output removed duplicated read pairs read 1 to /current/working/directory/read1.removed.fastq.gz
     Output removed duplicated read pairs read 2 to /current/working/directory/read2.removed.fastq.gz    
     Output unique read pairs read 1 to /current/working/directory/reads1.uniq.fastq.gz    
