@@ -47,7 +47,7 @@ wc -l *.fastq
 
 You should see both output files have 276884 lines.
 
-We also offer pre-compliled executable file for Linux. The executable file was compliled on Red Hat Enterprise Linux Server 7.0 (Maipo) by compiler gcc with the version of 4.8.2 20140120 (Red Hat 4.8.2-16). C++11 was used.
+We also offer pre-compliled executable file for Linux. The executable file was compiled on Red Hat Enterprise Linux Server 7.0 (Maipo) by compiler gcc with the version of 4.8.2 20140120 (Red Hat 4.8.2-16). C++11 was used.
 
 ## Usage:
 `./nubeam-dedup -h` gives you the following messages:
