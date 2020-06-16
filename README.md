@@ -1,7 +1,7 @@
 # nubeam-dedup
 `nubeam-dedup` is a fast and easy-to-use bioinformatics tool removing exact PCR duplicates for sequencing reads, single-end or paired-end. We appreciate your interest in `nubeam-dedup`. If you use `nubeam-dedup`, please kindly cite:
 
-Hang Dai and Yongtao Guan, **Nubeam-dedup: a fast and RAM-efficient tool to de-duplicate sequencing reads without mapping.** *Bioinformatics* (2020), DOI: 10.1093/bioinformatics/btaa112
+Hang Dai and Yongtao Guan, **Nubeam-dedup: a fast and RAM-efficient tool to de-duplicate sequencing reads without mapping.** *Bioinformatics* 36(10), P.3254-3256, (2020) DOI: [10.1093/bioinformatics/btaa112](https://doi.org/10.1093/bioinformatics/btaa112)
 
 ## Compiling:
 ### Dependency
