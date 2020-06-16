@@ -73,7 +73,7 @@ Parameters for paired-end (PE) reads:
 Miscellaneous parameters:
 --strand or -s: Whether take reads from complementary strand into account. Accept boolean 1 (default) or 0.
 --remove or -r: Whether output removed duplicated reads. Accept boolean 0 (default) or 1.
---gz or -z: Compression level of output file. Accept integer 0 (default) to 9. If 0 (default), the output data will not be compressed and will be written to plain text file; otherwise, the output data will be written to gzip format file, with the compression level suggested by user. If compression is needed, a compression level of 6 is recommended as a compromise between speed and compression.
+--gz or -z: Compression level of output file. Accept integer 0 (default) to 9. If 0 (default), the output data will not be compressed and will be written to plain text file; otherwise, the output data will be written to gzip format file, with the compression level suggested by user. If compression is needed, a compression level less than 3 is recommended as a compromise between speed and compression.
 
 -h: print this help
 ```
