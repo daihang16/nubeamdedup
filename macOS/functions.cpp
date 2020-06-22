@@ -5,7 +5,7 @@ void quantify_reads(string fin, string fout, string compression_level)
 {
 	gzFile output_file = gzopen(fout.c_str(), compression_level.c_str());
 	if (output_file == NULL) {
-		printf("can't open %s file to write\n", fout.c_str()); 
+		printf("can't open %s file to write. \n", fout.c_str()); 
 		exit(EX_CANTCREAT); 
 	}
 
@@ -23,10 +23,14 @@ void quantify_reads(string fin, string fout, string compression_level)
 	unordered_set<double> vdat;
 
 	double read_identifier = 0;
+
+	unsigned int line_num = 0; // number of reads
+	unsigned int n_uniq_reads = 0; // number of unique reads
 	while (gzgets(input_file, seq_id, 200) &&
 		gzgets(input_file, raw_sequence, 200) &&
 		gzgets(input_file, seq_id_repeat, 200) &&
 		gzgets(input_file, tscore, 200)) {
+		line_num++;
 		double prod[2][2] = {{1,0},{0,1}};
 		matrix_multiplication_helper(prod, raw_sequence, 'A');
 		matrix_multiplication_helper(prod, raw_sequence, 'T');
@@ -37,10 +41,12 @@ void quantify_reads(string fin, string fout, string compression_level)
 		// if unseen, keep it; else, skip it 
 		if (vdat.insert(read_identifier).second == 1) {
 			gzprintf(output_file, "%s%s+\n%s", seq_id, raw_sequence, tscore);
+			n_uniq_reads++;
 		}
 	}
 	gzclose(input_file);
 	gzclose(output_file); 
+	cout << n_uniq_reads << "/" << line_num << " reads are unique." << endl; 
 
 	vdat.clear();
 	delete[] seq_id;
@@ -78,10 +84,14 @@ void quantify_reads(string fin, string fout, string fremoved, string compression
 	unordered_set<double> vdat;
 
 	double read_identifier = 0;
+
+	unsigned int line_num = 0; // number of reads
+	unsigned int n_uniq_reads = 0; // number of unique reads
 	while (gzgets(input_file, seq_id, 200) &&
 		gzgets(input_file, raw_sequence, 200) &&
 		gzgets(input_file, seq_id_repeat, 200) &&
 		gzgets(input_file, tscore, 200)) {
+		line_num++;
 		double prod[2][2] = {{1,0},{0,1}};
 		matrix_multiplication_helper(prod, raw_sequence, 'A');
 		matrix_multiplication_helper(prod, raw_sequence, 'T');
@@ -92,6 +102,7 @@ void quantify_reads(string fin, string fout, string fremoved, string compression
 		// if unseen, keep it; else, skip it 
 		if (vdat.insert(read_identifier).second == 1) {
 			gzprintf(output_file, "%s%s+\n%s", seq_id, raw_sequence, tscore);
+			n_uniq_reads++;
 		} else {
 			gzprintf(removed_file, "%s%s+\n%s", seq_id, raw_sequence, tscore);
 		}
@@ -99,6 +110,7 @@ void quantify_reads(string fin, string fout, string fremoved, string compression
 	gzclose(input_file);
 	gzclose(removed_file);
 	gzclose(output_file); 
+	cout << n_uniq_reads << "/" << line_num << " reads are unique." << endl; 
 
 	vdat.clear();
 	delete[] seq_id;
@@ -132,10 +144,14 @@ void quantify_reads_rc(string fin, string fout, string compression_level)
 
 	double read_identifier = 0;
 	double read_identifier_rc = 0;
+
+	unsigned int line_num = 0; // number of reads
+	unsigned int n_uniq_reads = 0; // number of unique reads
 	while (gzgets(input_file, seq_id, 200) &&
 		gzgets(input_file, raw_sequence, 200) &&
 		gzgets(input_file, seq_id_repeat, 200) &&
 		gzgets(input_file, tscore, 200)) {
+		line_num++;
 		double prod[2][2] = {{1,0},{0,1}};
 		matrix_multiplication_helper(prod, raw_sequence, 'A');
 		matrix_multiplication_helper(prod, raw_sequence, 'T');
@@ -154,11 +170,13 @@ void quantify_reads_rc(string fin, string fout, string compression_level)
 			read_identifier_rc = prod_rc[0][0] + sqrt(3) * prod_rc[0][1] + M_SQRT2 * prod_rc[1][0] + sqrt(5) * prod_rc[1][1];
 			vdat.insert(read_identifier_rc);
 			gzprintf(output_file, "%s%s+\n%s", seq_id, raw_sequence, tscore);
+			n_uniq_reads++;
 			delete[] raw_sequence_rc;
 		}
 	}
 	gzclose(input_file);
 	gzclose(output_file); 
+	cout << n_uniq_reads << "/" << line_num << " reads are unique." << endl; 
 
 	vdat.clear();
 	delete[] seq_id;
@@ -198,10 +216,14 @@ void quantify_reads_rc(string fin, string fout, string fremoved, string compress
 
 	double read_identifier = 0;
 	double read_identifier_rc = 0;
+
+	unsigned int line_num = 0; // number of reads
+	unsigned int n_uniq_reads = 0; // number of unique reads
 	while (gzgets(input_file, seq_id, 200) &&
 		gzgets(input_file, raw_sequence, 200) &&
 		gzgets(input_file, seq_id_repeat, 200) &&
 		gzgets(input_file, tscore, 200)) {
+		line_num++;
 		double prod[2][2] = {{1,0},{0,1}};
 		matrix_multiplication_helper(prod, raw_sequence, 'A');
 		matrix_multiplication_helper(prod, raw_sequence, 'T');
@@ -220,6 +242,7 @@ void quantify_reads_rc(string fin, string fout, string fremoved, string compress
 			read_identifier_rc = prod_rc[0][0] + sqrt(3) * prod_rc[0][1] + M_SQRT2 * prod_rc[1][0] + sqrt(5) * prod_rc[1][1];
 			vdat.insert(read_identifier_rc);
 			gzprintf(output_file, "%s%s+\n%s", seq_id, raw_sequence, tscore);
+			n_uniq_reads++;
 			delete[] raw_sequence_rc;
 		} else {
 			gzprintf(removed_file, "%s%s+\n%s", seq_id, raw_sequence, tscore);
@@ -228,6 +251,7 @@ void quantify_reads_rc(string fin, string fout, string fremoved, string compress
 	gzclose(input_file);
 	gzclose(removed_file);
 	gzclose(output_file); 
+	cout << n_uniq_reads << "/" << line_num << " reads are unique." << endl; 
 
 	vdat.clear();
 	delete[] seq_id;
@@ -279,7 +303,8 @@ void quantify_reads(string fin1, string fin2, string fout1, string fout2, string
 	double read_identifier1 = 0;
 	double read_identifier2 = 0;
 
-	unsigned int line_num = 0;
+	unsigned int line_num = 0; // number of reads
+	unsigned int n_uniq_reads = 0; // number of unique reads
 	while (gzgets(input_file1, seq_id1, 200) &&
 		gzgets(input_file1, raw_sequence1, 200) &&
 		gzgets(input_file1, seq_id_repeat1, 200) &&
@@ -309,6 +334,7 @@ void quantify_reads(string fin1, string fin2, string fout1, string fout2, string
 			vdat2.insert({line_num, read_identifier2});
 			gzprintf(output_file1, "%s%s+\n%s", seq_id1, raw_sequence1, tscore1);
 			gzprintf(output_file2, "%s%s+\n%s", seq_id2, raw_sequence2, tscore2);
+			n_uniq_reads++;
 		} else {
 			bool seen = false;
 			while (!seen && pos1.first != pos1.second) {
@@ -322,6 +348,7 @@ void quantify_reads(string fin1, string fin2, string fout1, string fout2, string
 				vdat2.insert({line_num, read_identifier2});
 				gzprintf(output_file1, "%s%s+\n%s", seq_id1, raw_sequence1, tscore1);
 				gzprintf(output_file2, "%s%s+\n%s", seq_id2, raw_sequence2, tscore2);
+				n_uniq_reads++;
 			}
 		}
 	}
@@ -329,6 +356,7 @@ void quantify_reads(string fin1, string fin2, string fout1, string fout2, string
 	gzclose(input_file2);
 	gzclose(output_file1);
 	gzclose(output_file2); 
+	cout << n_uniq_reads << "/" << line_num << " read pairs are unique." << endl; 
 
 	vdat1.clear();
 	vdat2.clear();
@@ -396,7 +424,8 @@ void quantify_reads(string fin1, string fin2, string fout1, string fout2, string
 	double read_identifier1 = 0;
 	double read_identifier2 = 0;
 
-	unsigned int line_num = 0;
+	unsigned int line_num = 0; // number of reads
+	unsigned int n_uniq_reads = 0; // number of unique reads
 	while (gzgets(input_file1, seq_id1, 200) &&
 		gzgets(input_file1, raw_sequence1, 200) &&
 		gzgets(input_file1, seq_id_repeat1, 200) &&
@@ -426,6 +455,7 @@ void quantify_reads(string fin1, string fin2, string fout1, string fout2, string
 			vdat2.insert({line_num, read_identifier2});
 			gzprintf(output_file1, "%s%s+\n%s", seq_id1, raw_sequence1, tscore1);
 			gzprintf(output_file2, "%s%s+\n%s", seq_id2, raw_sequence2, tscore2);
+			n_uniq_reads++;
 		} else {
 			bool seen = false;
 			while (!seen && pos1.first != pos1.second) {
@@ -439,6 +469,7 @@ void quantify_reads(string fin1, string fin2, string fout1, string fout2, string
 				vdat2.insert({line_num, read_identifier2});
 				gzprintf(output_file1, "%s%s+\n%s", seq_id1, raw_sequence1, tscore1);
 				gzprintf(output_file2, "%s%s+\n%s", seq_id2, raw_sequence2, tscore2);
+				n_uniq_reads++;
 			} else {
 				gzprintf(removed_file1, "%s%s+\n%s", seq_id1, raw_sequence1, tscore1);
 				gzprintf(removed_file2, "%s%s+\n%s", seq_id2, raw_sequence2, tscore2);
@@ -451,6 +482,7 @@ void quantify_reads(string fin1, string fin2, string fout1, string fout2, string
 	gzclose(output_file2); 
 	gzclose(removed_file1);
 	gzclose(removed_file2);
+	cout << n_uniq_reads << "/" << line_num << " read pairs are unique." << endl; 
 
 	vdat1.clear();
 	vdat2.clear();
@@ -507,7 +539,8 @@ void quantify_reads_rc(string fin1, string fin2, string fout1, string fout2, str
 	double read_identifier1 = 0;
 	double read_identifier2 = 0;
 
-	unsigned int line_num = 0;
+	unsigned int line_num = 0; // number of reads
+	unsigned int n_uniq_reads = 0; // number of unique reads
 	while (gzgets(input_file1, seq_id1, 200) &&
 		gzgets(input_file1, raw_sequence1, 200) &&
 		gzgets(input_file1, seq_id_repeat1, 200) &&
@@ -551,6 +584,7 @@ void quantify_reads_rc(string fin1, string fin2, string fout1, string fout2, str
 				vdat2.insert({line_num, read_identifier2});
 				gzprintf(output_file1, "%s%s+\n%s", seq_id1, raw_sequence1, tscore1);
 				gzprintf(output_file2, "%s%s+\n%s", seq_id2, raw_sequence2, tscore2);
+				n_uniq_reads++;
 			} else { // r2 in map1
 				while (!seen && pos2.first != pos2.second) {
 					if (vdat2[pos2.first->second] == read_identifier1) {
@@ -563,6 +597,7 @@ void quantify_reads_rc(string fin1, string fin2, string fout1, string fout2, str
 					vdat2.insert({line_num, read_identifier2});
 					gzprintf(output_file1, "%s%s+\n%s", seq_id1, raw_sequence1, tscore1);
 					gzprintf(output_file2, "%s%s+\n%s", seq_id2, raw_sequence2, tscore2);
+					n_uniq_reads++;
 				}
 			}
 		}
@@ -571,6 +606,7 @@ void quantify_reads_rc(string fin1, string fin2, string fout1, string fout2, str
 	gzclose(input_file2);
 	gzclose(output_file1);
 	gzclose(output_file2); 
+	cout << n_uniq_reads << "/" << line_num << " read pairs are unique." << endl; 
 
 	vdat1.clear();
 	vdat2.clear();
@@ -638,7 +674,8 @@ void quantify_reads_rc(string fin1, string fin2, string fout1, string fout2, str
 	double read_identifier1 = 0;
 	double read_identifier2 = 0;
 
-	unsigned int line_num = 0;
+	unsigned int line_num = 0; // number of reads
+	unsigned int n_uniq_reads = 0; // number of unique reads
 	while (gzgets(input_file1, seq_id1, 200) &&
 		gzgets(input_file1, raw_sequence1, 200) &&
 		gzgets(input_file1, seq_id_repeat1, 200) &&
@@ -682,6 +719,7 @@ void quantify_reads_rc(string fin1, string fin2, string fout1, string fout2, str
 				vdat2.insert({line_num, read_identifier2});
 				gzprintf(output_file1, "%s%s+\n%s", seq_id1, raw_sequence1, tscore1);
 				gzprintf(output_file2, "%s%s+\n%s", seq_id2, raw_sequence2, tscore2);
+				n_uniq_reads++;
 			} else { // r2 in map1
 				while (!seen && pos2.first != pos2.second) {
 					if (vdat2[pos2.first->second] == read_identifier1) {
@@ -694,6 +732,7 @@ void quantify_reads_rc(string fin1, string fin2, string fout1, string fout2, str
 					vdat2.insert({line_num, read_identifier2});
 					gzprintf(output_file1, "%s%s+\n%s", seq_id1, raw_sequence1, tscore1);
 					gzprintf(output_file2, "%s%s+\n%s", seq_id2, raw_sequence2, tscore2);
+					n_uniq_reads++;
 				} else {
 					gzprintf(removed_file1, "%s%s+\n%s", seq_id1, raw_sequence1, tscore1);
 					gzprintf(removed_file2, "%s%s+\n%s", seq_id2, raw_sequence2, tscore2);
@@ -710,6 +749,7 @@ void quantify_reads_rc(string fin1, string fin2, string fout1, string fout2, str
 	gzclose(output_file2); 
 	gzclose(removed_file1);
 	gzclose(removed_file2);
+	cout << n_uniq_reads << "/" << line_num << " read pairs are unique." << endl; 
 
 	vdat1.clear();
 	vdat2.clear();

@@ -170,10 +170,10 @@ int main(int argc, char ** argv)
 					if (fremoved.empty()) { // which is default, else use what suggested by user
 						fremoved = current_working_dir + "/" + fin_copy + removed_name_suffix;
 					}
-					cout << "Output removed duplicated reads to " << fremoved << "\n";
+					clog << "Output removed duplicated reads to " << fremoved << endl;
 				}
 			}
-			cout << "Output unique reads to " << fout << "\n";
+			clog << "Output unique reads to " << fout << endl;
 
 			if (strand) {
 				if (write_remove) {
@@ -226,10 +226,10 @@ int main(int argc, char ** argv)
 						fremoved1 = current_working_dir + "/" + fin_copy1 + removed_name_suffix;
 						fremoved2 = current_working_dir + "/" + fin_copy2 + removed_name_suffix;
 					}
-					cout << "Output removed duplicated read pairs read 1 to " << fremoved1 << "\nOutput removed duplicated read pairs read 2 to " << fremoved2 << "\n";
+					clog << "Output removed duplicated read pairs read 1 to " << fremoved1 << "\nOutput removed duplicated read pairs read 2 to " << fremoved2 << endl;
 				}
 			}
-			cout << "Output unique read pairs read 1 to " << fout1 << "\nOutput unique read pairs read 2 to " << fout2 << "\n";
+			clog << "Output unique read pairs read 1 to " << fout1 << "\nOutput unique read pairs read 2 to " << fout2 << endl;
 			
 			if (strand) {
 				if (write_remove) {
