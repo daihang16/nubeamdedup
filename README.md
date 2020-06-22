@@ -27,25 +27,34 @@ sudo make install
 Run the following commands:
 
 On `Linux`:
-```Shell
-wget --no-check-certificate --content-disposition https://github.com/daihang16/nubeamdedup/archive/master.zip
-unzip nubeamdedup-master.zip
-cd nubeamdedup-master/Linux/
+```console
+foo@bar:~$ wget --no-check-certificate --content-disposition https://github.com/daihang16/nubeamdedup/archive/master.zip
+foo@bar:~$ unzip nubeamdedup-master.zip
+foo@bar:~$ cd nubeamdedup-master/Linux/
 ```
 On `macOS`:
-```Shell
-curl -LJO https://github.com/daihang16/nubeamdedup/archive/master.zip
-unzip nubeamdedup-master.zip
-cd nubeamdedup-master/macOS/
+```console
+foo@bar:~$ curl -LJO https://github.com/daihang16/nubeamdedup/archive/master.zip
+foo@bar:~$ unzip nubeamdedup-master.zip
+foo@bar:~$ cd nubeamdedup-master/macOS/
 ```
 Then:
-```Shell
-make && make clean
-./nubeam-dedup -i1 ../toydata/1.fq.gz -i2 ../toydata/2.fq.gz
-wc -l *.fastq
+```console
+foo@bar:Linux$ make && make clean
+foo@bar:Linux$ ./nubeam-dedup -i1 ../toydata/1.fq.gz -i2 ../toydata/2.fq.gz 1> out.txt 2> log.txt
+foo@bar:Linux$ cat log.txt
+Output unique read pairs read 1 to nubeamdedup/Linux/1.uniq.fastq
+Output unique read pairs read 2 to nubeamdedup/Linux/2.uniq.fastq
+foo@bar:Linux$ cat out.txt
+69221/142250 read pairs are unique.
+foo@bar:Linux$ wc -l *.fastq
+276884 1.uniq.fastq
+276884 2.uniq.fastq
+553768 total
+
 ```
 
-You should see both output files have 276884 lines.
+You should see the expected output as above.
 
 We also offer pre-compiled executable file for Linux. The executable file was compiled on Ubuntu 18.04.2 LTS by compiler gcc with the version of 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04). C++11 was used.
 
