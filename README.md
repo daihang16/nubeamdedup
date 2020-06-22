@@ -92,6 +92,7 @@ Miscellaneous parameters:
     
     ```console
     Output unique reads to /current/working/directory/read.uniq.fastq
+    x/y reads are unique.
     ```
   - Do not consider reads from complementary strand
     
@@ -109,6 +110,7 @@ Miscellaneous parameters:
     ```console
     Output removed duplicated reads to /current/working/directory/read.removed.fastq.gz    
     Output unique reads to /current/working/directory/read.uniq.fastq.gz
+    x/y reads are unique.
     ```
 
 - For paired-end reads
@@ -123,6 +125,7 @@ Miscellaneous parameters:
     ```console
     Output unique read pairs read 1 to /current/working/directory/reads1.uniq.fastq    
     Output unique read pairs read 2 to /current/working/directory/reads2.uniq.fastq
+    x/y read pairs are unique.
     ```
   - Do not consider reads from complementary strand
   
@@ -142,6 +145,7 @@ Miscellaneous parameters:
     Output removed duplicated read pairs read 2 to /current/working/directory/read2.removed.fastq.gz    
     Output unique read pairs read 1 to /current/working/directory/reads1.uniq.fastq.gz    
     Output unique read pairs read 2 to /current/working/directory/reads2.uniq.fastq.gz
+    x/y read pairs are unique.
     ```
 ## Miscellaneous:    
 - A large value (like 6) for `-z` tag might significantly increase the running time. From Figures 1, 2 and 7 in [this post](https://clearlinux.org/news-blogs/linux-os-data-compression-options-comparing-behavior), `-z 6` would increase the amount of time by a factor of 2.5-3 compared with `-z 1` (with a limited gain regarding to compression ratio); and `-z 1` would increase the amount of time by a factor of 2.5 compared with `-z 0`, which is the default setting of `nubeam-dedup`. The recommended practice is: either use a smaller compression level (1-3) or do not use the `-z` tag at all. For the latter choice, if compression was required, [pigz](https://zlib.net/pigz/) could be used after `nubeam-dedup` finishes---this can significantly accelerate the compression.
