@@ -15,10 +15,10 @@ void quantify_reads(string fin, string fout, string compression_level)
 		exit(EX_NOINPUT); 
 	}
 	
-	char * seq_id = new char[200];  
-	char * raw_sequence = new char[200]; 
-	char * seq_id_repeat = new char[200];
-	char * tscore = new char[200];  
+	char * seq_id = new char[310];  
+	char * raw_sequence = new char[310]; 
+	char * seq_id_repeat = new char[310];
+	char * tscore = new char[310];  
 
 	unordered_set<double> vdat;
 
@@ -26,10 +26,10 @@ void quantify_reads(string fin, string fout, string compression_level)
 
 	unsigned int line_num = 0; // number of reads
 	unsigned int n_uniq_reads = 0; // number of unique reads
-	while (gzgets(input_file, seq_id, 200) &&
-		gzgets(input_file, raw_sequence, 200) &&
-		gzgets(input_file, seq_id_repeat, 200) &&
-		gzgets(input_file, tscore, 200)) {
+	while (gzgets(input_file, seq_id, 310) &&
+		gzgets(input_file, raw_sequence, 310) &&
+		gzgets(input_file, seq_id_repeat, 310) &&
+		gzgets(input_file, tscore, 310)) {
 		line_num++;
 		double prod[2][2] = {{1,0},{0,1}};
 		matrix_multiplication_helper(prod, raw_sequence, 'A');
@@ -76,10 +76,10 @@ void quantify_reads(string fin, string fout, string fremoved, string compression
 		exit(EX_NOINPUT); 
 	}
 	
-	char * seq_id = new char[200];  
-	char * raw_sequence = new char[200]; 
-	char * seq_id_repeat = new char[200];
-	char * tscore = new char[200];  
+	char * seq_id = new char[310];  
+	char * raw_sequence = new char[310]; 
+	char * seq_id_repeat = new char[310];
+	char * tscore = new char[310];  
 
 	unordered_set<double> vdat;
 
@@ -87,10 +87,10 @@ void quantify_reads(string fin, string fout, string fremoved, string compression
 
 	unsigned int line_num = 0; // number of reads
 	unsigned int n_uniq_reads = 0; // number of unique reads
-	while (gzgets(input_file, seq_id, 200) &&
-		gzgets(input_file, raw_sequence, 200) &&
-		gzgets(input_file, seq_id_repeat, 200) &&
-		gzgets(input_file, tscore, 200)) {
+	while (gzgets(input_file, seq_id, 310) &&
+		gzgets(input_file, raw_sequence, 310) &&
+		gzgets(input_file, seq_id_repeat, 310) &&
+		gzgets(input_file, tscore, 310)) {
 		line_num++;
 		double prod[2][2] = {{1,0},{0,1}};
 		matrix_multiplication_helper(prod, raw_sequence, 'A');
@@ -135,10 +135,10 @@ void quantify_reads_rc(string fin, string fout, string compression_level)
 		exit(EX_NOINPUT); 
 	}
 	
-	char * seq_id = new char[200];  
-	char * raw_sequence = new char[200]; 
-	char * seq_id_repeat = new char[200];
-	char * tscore = new char[200];  
+	char * seq_id = new char[310];  
+	char * raw_sequence = new char[310]; 
+	char * seq_id_repeat = new char[310];
+	char * tscore = new char[310];  
 
 	unordered_set<double> vdat;
 
@@ -147,10 +147,10 @@ void quantify_reads_rc(string fin, string fout, string compression_level)
 
 	unsigned int line_num = 0; // number of reads
 	unsigned int n_uniq_reads = 0; // number of unique reads
-	while (gzgets(input_file, seq_id, 200) &&
-		gzgets(input_file, raw_sequence, 200) &&
-		gzgets(input_file, seq_id_repeat, 200) &&
-		gzgets(input_file, tscore, 200)) {
+	while (gzgets(input_file, seq_id, 310) &&
+		gzgets(input_file, raw_sequence, 310) &&
+		gzgets(input_file, seq_id_repeat, 310) &&
+		gzgets(input_file, tscore, 310)) {
 		line_num++;
 		double prod[2][2] = {{1,0},{0,1}};
 		matrix_multiplication_helper(prod, raw_sequence, 'A');
@@ -207,10 +207,10 @@ void quantify_reads_rc(string fin, string fout, string fremoved, string compress
 		exit(EX_NOINPUT); 
 	}
 	
-	char * seq_id = new char[200];  
-	char * raw_sequence = new char[200]; 
-	char * seq_id_repeat = new char[200];
-	char * tscore = new char[200];  
+	char * seq_id = new char[310];  
+	char * raw_sequence = new char[310]; 
+	char * seq_id_repeat = new char[310];
+	char * tscore = new char[310];  
 
 	unordered_set<double> vdat;
 
@@ -219,10 +219,10 @@ void quantify_reads_rc(string fin, string fout, string fremoved, string compress
 
 	unsigned int line_num = 0; // number of reads
 	unsigned int n_uniq_reads = 0; // number of unique reads
-	while (gzgets(input_file, seq_id, 200) &&
-		gzgets(input_file, raw_sequence, 200) &&
-		gzgets(input_file, seq_id_repeat, 200) &&
-		gzgets(input_file, tscore, 200)) {
+	while (gzgets(input_file, seq_id, 310) &&
+		gzgets(input_file, raw_sequence, 310) &&
+		gzgets(input_file, seq_id_repeat, 310) &&
+		gzgets(input_file, tscore, 310)) {
 		line_num++;
 		double prod[2][2] = {{1,0},{0,1}};
 		matrix_multiplication_helper(prod, raw_sequence, 'A');
@@ -287,15 +287,15 @@ void quantify_reads(string fin1, string fin2, string fout1, string fout2, string
 		exit(EX_NOINPUT); 
 	}
 	
-	char * seq_id1 = new char[200];  
-	char * raw_sequence1 = new char[200]; 
-	char * seq_id_repeat1 = new char[200];
-	char * tscore1 = new char[200];  
+	char * seq_id1 = new char[310];  
+	char * raw_sequence1 = new char[310]; 
+	char * seq_id_repeat1 = new char[310];
+	char * tscore1 = new char[310];  
 
-	char * seq_id2 = new char[200];  
-	char * raw_sequence2 = new char[200]; 
-	char * seq_id_repeat2 = new char[200];
-	char * tscore2 = new char[200];  
+	char * seq_id2 = new char[310];  
+	char * raw_sequence2 = new char[310]; 
+	char * seq_id_repeat2 = new char[310];
+	char * tscore2 = new char[310];  
 
 	unordered_multimap<double, unsigned int> vdat1;
 	unordered_map<unsigned int, double> vdat2;
@@ -305,14 +305,14 @@ void quantify_reads(string fin1, string fin2, string fout1, string fout2, string
 
 	unsigned int line_num = 0; // number of reads
 	unsigned int n_uniq_reads = 0; // number of unique reads
-	while (gzgets(input_file1, seq_id1, 200) &&
-		gzgets(input_file1, raw_sequence1, 200) &&
-		gzgets(input_file1, seq_id_repeat1, 200) &&
-		gzgets(input_file1, tscore1, 200) &&
-		gzgets(input_file2, seq_id2, 200) &&
-		gzgets(input_file2, raw_sequence2, 200) &&
-		gzgets(input_file2, seq_id_repeat2, 200) &&
-		gzgets(input_file2, tscore2, 200)) {
+	while (gzgets(input_file1, seq_id1, 310) &&
+		gzgets(input_file1, raw_sequence1, 310) &&
+		gzgets(input_file1, seq_id_repeat1, 310) &&
+		gzgets(input_file1, tscore1, 310) &&
+		gzgets(input_file2, seq_id2, 310) &&
+		gzgets(input_file2, raw_sequence2, 310) &&
+		gzgets(input_file2, seq_id_repeat2, 310) &&
+		gzgets(input_file2, tscore2, 310)) {
 		line_num++;
 		double prod1[2][2] = {{1,0},{0,1}};
 		double prod2[2][2] = {{1,0},{0,1}};
@@ -408,15 +408,15 @@ void quantify_reads(string fin1, string fin2, string fout1, string fout2, string
 		exit(EX_NOINPUT); 
 	}
 	
-	char * seq_id1 = new char[200];  
-	char * raw_sequence1 = new char[200]; 
-	char * seq_id_repeat1 = new char[200];
-	char * tscore1 = new char[200];  
+	char * seq_id1 = new char[310];  
+	char * raw_sequence1 = new char[310]; 
+	char * seq_id_repeat1 = new char[310];
+	char * tscore1 = new char[310];  
 
-	char * seq_id2 = new char[200];  
-	char * raw_sequence2 = new char[200]; 
-	char * seq_id_repeat2 = new char[200];
-	char * tscore2 = new char[200];  
+	char * seq_id2 = new char[310];  
+	char * raw_sequence2 = new char[310]; 
+	char * seq_id_repeat2 = new char[310];
+	char * tscore2 = new char[310];  
 
 	unordered_multimap<double, unsigned int> vdat1;
 	unordered_map<unsigned int, double> vdat2;
@@ -426,14 +426,14 @@ void quantify_reads(string fin1, string fin2, string fout1, string fout2, string
 
 	unsigned int line_num = 0; // number of reads
 	unsigned int n_uniq_reads = 0; // number of unique reads
-	while (gzgets(input_file1, seq_id1, 200) &&
-		gzgets(input_file1, raw_sequence1, 200) &&
-		gzgets(input_file1, seq_id_repeat1, 200) &&
-		gzgets(input_file1, tscore1, 200) &&
-		gzgets(input_file2, seq_id2, 200) &&
-		gzgets(input_file2, raw_sequence2, 200) &&
-		gzgets(input_file2, seq_id_repeat2, 200) &&
-		gzgets(input_file2, tscore2, 200)) {
+	while (gzgets(input_file1, seq_id1, 310) &&
+		gzgets(input_file1, raw_sequence1, 310) &&
+		gzgets(input_file1, seq_id_repeat1, 310) &&
+		gzgets(input_file1, tscore1, 310) &&
+		gzgets(input_file2, seq_id2, 310) &&
+		gzgets(input_file2, raw_sequence2, 310) &&
+		gzgets(input_file2, seq_id_repeat2, 310) &&
+		gzgets(input_file2, tscore2, 310)) {
 		line_num++;
 		double prod1[2][2] = {{1,0},{0,1}};
 		double prod2[2][2] = {{1,0},{0,1}};
@@ -523,15 +523,15 @@ void quantify_reads_rc(string fin1, string fin2, string fout1, string fout2, str
 		exit(EX_NOINPUT); 
 	}
 	
-	char * seq_id1 = new char[200];  
-	char * raw_sequence1 = new char[200]; 
-	char * seq_id_repeat1 = new char[200];
-	char * tscore1 = new char[200];  
+	char * seq_id1 = new char[310];  
+	char * raw_sequence1 = new char[310]; 
+	char * seq_id_repeat1 = new char[310];
+	char * tscore1 = new char[310];  
 
-	char * seq_id2 = new char[200];  
-	char * raw_sequence2 = new char[200]; 
-	char * seq_id_repeat2 = new char[200];
-	char * tscore2 = new char[200];  
+	char * seq_id2 = new char[310];  
+	char * raw_sequence2 = new char[310]; 
+	char * seq_id_repeat2 = new char[310];
+	char * tscore2 = new char[310];  
 
 	unordered_multimap<double, unsigned int> vdat1;
 	unordered_map<unsigned int, double> vdat2;
@@ -541,14 +541,14 @@ void quantify_reads_rc(string fin1, string fin2, string fout1, string fout2, str
 
 	unsigned int line_num = 0; // number of reads
 	unsigned int n_uniq_reads = 0; // number of unique reads
-	while (gzgets(input_file1, seq_id1, 200) &&
-		gzgets(input_file1, raw_sequence1, 200) &&
-		gzgets(input_file1, seq_id_repeat1, 200) &&
-		gzgets(input_file1, tscore1, 200) &&
-		gzgets(input_file2, seq_id2, 200) &&
-		gzgets(input_file2, raw_sequence2, 200) &&
-		gzgets(input_file2, seq_id_repeat2, 200) &&
-		gzgets(input_file2, tscore2, 200)) {
+	while (gzgets(input_file1, seq_id1, 310) &&
+		gzgets(input_file1, raw_sequence1, 310) &&
+		gzgets(input_file1, seq_id_repeat1, 310) &&
+		gzgets(input_file1, tscore1, 310) &&
+		gzgets(input_file2, seq_id2, 310) &&
+		gzgets(input_file2, raw_sequence2, 310) &&
+		gzgets(input_file2, seq_id_repeat2, 310) &&
+		gzgets(input_file2, tscore2, 310)) {
 		line_num++;
 		double prod1[2][2] = {{1,0},{0,1}};
 		double prod2[2][2] = {{1,0},{0,1}};
@@ -658,15 +658,15 @@ void quantify_reads_rc(string fin1, string fin2, string fout1, string fout2, str
 		exit(EX_NOINPUT); 
 	}
 	
-	char * seq_id1 = new char[200];  
-	char * raw_sequence1 = new char[200]; 
-	char * seq_id_repeat1 = new char[200];
-	char * tscore1 = new char[200];  
+	char * seq_id1 = new char[310];  
+	char * raw_sequence1 = new char[310]; 
+	char * seq_id_repeat1 = new char[310];
+	char * tscore1 = new char[310];  
 
-	char * seq_id2 = new char[200];  
-	char * raw_sequence2 = new char[200]; 
-	char * seq_id_repeat2 = new char[200];
-	char * tscore2 = new char[200];  
+	char * seq_id2 = new char[310];  
+	char * raw_sequence2 = new char[310]; 
+	char * seq_id_repeat2 = new char[310];
+	char * tscore2 = new char[310];  
 
 	unordered_multimap<double, unsigned int> vdat1;
 	unordered_map<unsigned int, double> vdat2;
@@ -676,14 +676,14 @@ void quantify_reads_rc(string fin1, string fin2, string fout1, string fout2, str
 
 	unsigned int line_num = 0; // number of reads
 	unsigned int n_uniq_reads = 0; // number of unique reads
-	while (gzgets(input_file1, seq_id1, 200) &&
-		gzgets(input_file1, raw_sequence1, 200) &&
-		gzgets(input_file1, seq_id_repeat1, 200) &&
-		gzgets(input_file1, tscore1, 200) &&
-		gzgets(input_file2, seq_id2, 200) &&
-		gzgets(input_file2, raw_sequence2, 200) &&
-		gzgets(input_file2, seq_id_repeat2, 200) &&
-		gzgets(input_file2, tscore2, 200)) {
+	while (gzgets(input_file1, seq_id1, 310) &&
+		gzgets(input_file1, raw_sequence1, 310) &&
+		gzgets(input_file1, seq_id_repeat1, 310) &&
+		gzgets(input_file1, tscore1, 310) &&
+		gzgets(input_file2, seq_id2, 310) &&
+		gzgets(input_file2, raw_sequence2, 310) &&
+		gzgets(input_file2, seq_id_repeat2, 310) &&
+		gzgets(input_file2, tscore2, 310)) {
 		line_num++;
 		double prod1[2][2] = {{1,0},{0,1}};
 		double prod2[2][2] = {{1,0},{0,1}};
