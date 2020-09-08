@@ -18,7 +18,7 @@ endif
 
 CFLAGS += -Wall -m64 -std=c++11
 
-STATICLIBS = /usr/local/lib/libz.a
+STATICLIBS = libz.a
 
 LIBS = -lm -lz
 
