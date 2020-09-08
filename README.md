@@ -4,6 +4,7 @@
 Hang Dai and Yongtao Guan, **Nubeam-dedup: a fast and RAM-efficient tool to de-duplicate sequencing reads without mapping.** *Bioinformatics* 36(10), P.3254-3256, (2020) DOI: [10.1093/bioinformatics/btaa112](https://doi.org/10.1093/bioinformatics/btaa112)
 
 ## Compiling:
+<!---
 ### Dependency
 `zlib` is required to compile. For most computers it was already installed. If not, run the following commands to install `zlib`:
 
@@ -23,6 +24,7 @@ cd zlib-1.2.11/
 make
 sudo make install
 ```
+-->
 ### Compile nubeam-dedup
 Run the following commands:
 
