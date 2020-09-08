@@ -20,7 +20,7 @@ CFLAGS += -Wall -m64 -std=c++11
 
 #on mac, try ls /usr/lib/libz.*, there are some libz files in it.
 #see https://stackoverflow.com/a/52511069 for installation of libz.a
-STATICLIBS = /usr/local/lib/libz.a
+STATICLIBS = libz.a
 
 LIBS = -lm -lz
 
