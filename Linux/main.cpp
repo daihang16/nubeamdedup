@@ -1,21 +1,3 @@
-// /*************************************************************************
-// * 
-// * Duke University CONFIDENTIAL
-// * __________________
-// * 
-// * [2019] - [20**] Duke University & Yongtao Guan & Hang Dai
-// * All Rights Reserved.
-// * 
-// * NOTICE: All information contained herein is, and remains
-// * the property of Duke University and the creator. 
-// * The intellectual and technical concepts contained
-// * herein are proprietary to Duke University and the creator
-// * and may be covered by U.S. and Foreign Patents, patents in process, 
-// * and are protected by trade secret or copyright law.
-// * Dissemination of this information or reproduction of this material
-// * is strictly forbidden unless prior written permission is obtained
-// * from Duke University.
-
 #include "functions.h"
 
 int main(int argc, char ** argv)
